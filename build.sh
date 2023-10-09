@@ -1,7 +1,7 @@
 #!/bin/bash
 
 user="agenciaboz"
-subdomain="app.agenciaboz.com.br"
+subdomain="pay.agenciaboz.com.br"
 path="/home/${user}/${subdomain}"
 
 npx vite build
