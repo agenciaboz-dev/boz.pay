@@ -1,10 +1,15 @@
 import React from "react"
-import { Box, TextField } from "@mui/material"
+import { Box, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material"
 import { FormikProps } from "formik"
 
 interface PaymentFormProps {}
 
-export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMethod: PaymentMethod }> = ({ values, handleChange, paymentMethod }) => {
+export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMethod: PaymentMethod }> = ({
+    values,
+    handleChange,
+    paymentMethod,
+    setFieldValue,
+}) => {
     return (
         <Box sx={{ flexDirection: "column", gap: "1vw", flexWrap: "wrap", height: "90vh", width: paymentMethod == "card" ? "29vw" : "58vw" }}>
             <Box sx={{ flexDirection: "column", gap: "1vw" }}>
@@ -34,19 +39,30 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
             {paymentMethod == "card" && (
                 <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                     <h3>DADOS DO TITULAR DO CARTÃO</h3>
-                    <TextField label="Número do cartão" name="cardNumber" value={(values as CardForm).cardNumber} onChange={handleChange} />
+                    <TextField label="Número do cartão" name="cardNumber" value={(values as CardForm).cardNumber || ""} onChange={handleChange} />
 
                     <Box sx={{ gap: "1vw" }}>
-                        <TextField label="Validade" name="expiry" value={(values as CardForm).expiry} onChange={handleChange} sx={{ width: "48%" }} />
+                        <TextField
+                            label="Validade"
+                            name="expiry"
+                            value={(values as CardForm).expiry || ""}
+                            onChange={handleChange}
+                            sx={{ width: "48%" }}
+                        />
                         <TextField
                             label="Código de segurança"
                             name="cvv"
-                            value={(values as CardForm).cvv}
+                            value={(values as CardForm).cvv || ""}
                             onChange={handleChange}
                             sx={{ width: "48%" }}
                         />
                     </Box>
-                    <TextField label="Data de nascimento" name="birth" value={(values as CardForm).birth} onChange={handleChange} />
+                    <TextField label="Nome do titular" name="cardOwner" value={(values as CardForm).cardOwner || ""} onChange={handleChange} />
+
+                    <RadioGroup value={(values as CardForm).type || "debit"} onChange={(_, value) => setFieldValue("type", value)}>
+                        <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
+                        <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />
+                    </RadioGroup>
                 </Box>
             )}
         </Box>

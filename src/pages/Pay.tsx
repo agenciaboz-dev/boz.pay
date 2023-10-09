@@ -69,7 +69,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />
                                 <Box sx={{ flexDirection: "column", gap: "1vw", width: "30vw" }}>
                                     <OrderDetails order={order} />
-                                    <PaymentDetails order={order} paymentMethod={paymentMethod} />
+                                    <PaymentDetails order={order} paymentMethod={paymentMethod} formikValues={formikProps.values} />
                                     <Button
                                         disabled={!order}
                                         type="submit"

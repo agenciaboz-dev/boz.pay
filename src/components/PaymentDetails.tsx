@@ -7,10 +7,12 @@ import { getParcelas } from "../tools/parcelas"
 interface PaymentDetailsProps {
     order?: Order
     paymentMethod: PaymentMethod
+    formikValues: CardForm | Form
 }
 
-export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod }) => {
+export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod, formikValues }) => {
     const [parcelamento, setParcelamento] = useState(1)
+
     return order ? (
         <Box
             sx={{
@@ -24,8 +26,8 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
         >
             <TextField
                 select
-                disabled={paymentMethod != "card"}
-                value={paymentMethod != "card" ? 1 : parcelamento}
+                disabled={paymentMethod != "card" || (formikValues as CardForm).type != "credit"}
+                value={paymentMethod != "card" || (formikValues as CardForm).type != "credit" ? 1 : parcelamento}
                 onChange={(ev) => setParcelamento(Number(ev.target.value))}
             >
                 {getParcelas(order.total).map((item) => (
