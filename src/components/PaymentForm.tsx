@@ -6,7 +6,7 @@ interface PaymentFormProps {}
 
 export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMethod: PaymentMethod }> = ({ values, handleChange, paymentMethod }) => {
     return (
-        <Box sx={{ flexDirection: "column", gap: "1vw", flexWrap: "wrap", height: "90vh", width: "29vw" }}>
+        <Box sx={{ flexDirection: "column", gap: "1vw", flexWrap: "wrap", height: "90vh", width: paymentMethod == "card" ? "29vw" : "58vw" }}>
             <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                 <h3>DETALHES DE COBRANÇA</h3>
 

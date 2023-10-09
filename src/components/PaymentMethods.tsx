@@ -31,7 +31,7 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
 
     return (
         <Box sx={{ flexDirection: "column", gap: "2vw" }}>
-            <p>MÉTODOS DE PAGAMENTO</p>
+            <h3>MÉTODOS DE PAGAMENTO</h3>
 
             <Box sx={{ gap: "1vw" }}>
                 {methods.map((item) => {
