@@ -13,7 +13,7 @@ export const useColors = () => {
         warning: darkMode ? "#ffa726" : "#ffb74d",
 
         background: {
-            primary: darkMode ? "#1F1F1F" : "#ffffff",
+            primary: darkMode ? "#1F1F1F" : "#F5F5F7",
             secondary: darkMode ? "#181818" : "#00AFEF",
         },
 
