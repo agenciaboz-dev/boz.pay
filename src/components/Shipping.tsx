@@ -12,7 +12,7 @@ export const Shipping: React.FC<ShippingProps> = ({ shipping }) => {
             sx={{
                 flexDirection: "column",
                 gap: "1vw",
-                borderBottom: `1px solid ${colors.border}`,
+                // borderBottom: `1px solid ${colors.border}`,
                 borderTop: `1px solid ${colors.border}`,
                 padding: "1vw 0",
             }}
