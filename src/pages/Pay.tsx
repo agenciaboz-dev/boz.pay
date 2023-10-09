@@ -29,8 +29,8 @@ export const Pay: React.FC<PayProps> = ({}) => {
         if (loading) return
         console.log(values)
 
-        // setLoading(true)
-        // io.emit("order:pay", order?.id)
+        setLoading(true)
+        io.emit("order:pay", { order: { ...values, id: order?.id, method: paymentMethod, total: order?.total } })
     }
 
     useEffect(() => {
