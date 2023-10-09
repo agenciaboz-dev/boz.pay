@@ -6,6 +6,7 @@ import colors from "../style/colors"
 import { useParams } from "react-router-dom"
 import { useIo } from "../hooks/useIo"
 import { OrderDetails } from "../components/OrderDetails"
+import { PaymentDetails } from "../components/PaymentDetails"
 
 interface PayProps {}
 
@@ -33,7 +34,10 @@ export const Pay: React.FC<PayProps> = ({}) => {
             <Header />
             <Box sx={{ flexDirection: "column", padding: "2vw 5vw", gap: "2vw" }}>
                 <PaymentMethods paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
-                <OrderDetails order={order} />
+                <Box sx={{ flexDirection: "column", gap: "1vw", width: "30vw" }}>
+                    <OrderDetails order={order} />
+                    <PaymentDetails order={order} paymentMethod={paymentMethod} />
+                </Box>
             </Box>
         </Box>
     )

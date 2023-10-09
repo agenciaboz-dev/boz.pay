@@ -16,7 +16,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
                 bgcolor: "white",
                 padding: "1vw 2vw",
                 borderRadius: "1vw",
-                width: "30vw",
                 gap: "1vw",
             }}
         >

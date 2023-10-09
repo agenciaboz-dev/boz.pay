@@ -23,7 +23,6 @@ export const useMuiTheme = () => {
 
             background: {
                 default: colors.background.primary,
-                paper: colors.background.secondary,
             },
 
             text: {
