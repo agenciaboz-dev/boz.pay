@@ -33,7 +33,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
 
             {paymentMethod == "card" && (
                 <Box sx={{ flexDirection: "column", gap: "1vw" }}>
-                    <p>DADOS DO TITULAR DO CARTÃO</p>
+                    <h3>DADOS DO TITULAR DO CARTÃO</h3>
                     <TextField label="Número do cartão" name="cardNumber" value={(values as CardForm).cardNumber} onChange={handleChange} />
 
                     <Box sx={{ gap: "1vw" }}>
