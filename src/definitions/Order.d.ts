@@ -8,6 +8,9 @@ declare interface Order {
     order_key: string
     cart_hash: string
 
+    pag_status: string
+    error_status?: string
+
     billing: Blling
     shipping: Shipping
 }
