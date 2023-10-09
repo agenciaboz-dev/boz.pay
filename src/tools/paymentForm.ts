@@ -22,6 +22,7 @@ export const getPaymentForm = (method: PaymentMethod, billing: Billing) => {
             cvv: "",
             cardOwner: "",
             type: "debit",
+            installments: 1,
         },
         boleto: notCard,
         pix: notCard,

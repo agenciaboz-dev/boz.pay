@@ -6,6 +6,7 @@ declare interface CardForm extends Form {
     cvv: string
     cardOwner: string
     type: "credit" | "debit"
+    installments: number
 }
 
 declare interface Form {

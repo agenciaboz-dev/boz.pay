@@ -29,8 +29,8 @@ export const Pay: React.FC<PayProps> = ({}) => {
         if (loading) return
         console.log(values)
 
-        setLoading(true)
-        io.emit("order:pay", order?.id)
+        // setLoading(true)
+        // io.emit("order:pay", order?.id)
     }
 
     useEffect(() => {
@@ -69,7 +69,12 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />
                                 <Box sx={{ flexDirection: "column", gap: "1vw", width: "30vw" }}>
                                     <OrderDetails order={order} />
-                                    <PaymentDetails order={order} paymentMethod={paymentMethod} formikValues={formikProps.values} />
+                                    <PaymentDetails
+                                        order={order}
+                                        paymentMethod={paymentMethod}
+                                        formikValues={formikProps.values}
+                                        setInstallments={(value) => formikProps.setFieldValue("installments", value)}
+                                    />
                                     <Button
                                         disabled={!order}
                                         type="submit"

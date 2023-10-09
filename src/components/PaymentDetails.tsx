@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Box, MenuItem, Skeleton, TextField } from "@mui/material"
 import colors from "../style/colors"
 import { CurrencyText } from "./CurrencyText"
@@ -8,10 +8,21 @@ interface PaymentDetailsProps {
     order?: Order
     paymentMethod: PaymentMethod
     formikValues: CardForm | Form
+    setInstallments: (value: number) => void
 }
 
-export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod, formikValues }) => {
+export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod, formikValues, setInstallments }) => {
+    const notInstallments = paymentMethod != "card" || (formikValues as CardForm).type != "credit"
+
     const [parcelamento, setParcelamento] = useState(1)
+
+    useEffect(() => {
+        if (notInstallments) {
+            console.log(":(")
+            setInstallments(1)
+            setParcelamento(1)
+        }
+    }, [notInstallments])
 
     return order ? (
         <Box
@@ -26,9 +37,12 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
         >
             <TextField
                 select
-                disabled={paymentMethod != "card" || (formikValues as CardForm).type != "credit"}
-                value={paymentMethod != "card" || (formikValues as CardForm).type != "credit" ? 1 : parcelamento}
-                onChange={(ev) => setParcelamento(Number(ev.target.value))}
+                disabled={notInstallments}
+                value={notInstallments ? 1 : parcelamento}
+                onChange={(ev) => {
+                    setParcelamento(Number(ev.target.value))
+                    setInstallments(Number(ev.target.value))
+                }}
             >
                 {getParcelas(order.total).map((item) => (
                     <MenuItem key={item.id} value={item.id}>
