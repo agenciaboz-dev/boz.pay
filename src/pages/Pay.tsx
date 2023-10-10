@@ -50,7 +50,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
             setLoading(true)
             io.emit("order:pay", data)
         },
-        [order]
+        [order, paymentMethod]
     )
 
     useEffect(() => {
