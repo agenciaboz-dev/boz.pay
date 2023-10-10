@@ -1,6 +1,8 @@
 import React from "react"
 import { Box, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material"
 import { FormikProps } from "formik"
+import MaskedInput from "./MaskedInput"
+import masks from "../tools/masks"
 
 interface PaymentFormProps {}
 
@@ -29,7 +31,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     name="cpf"
                     value={values.cpf}
                     onChange={handleChange}
-                    InputProps={{ readOnly: !!initialValues.cpf }}
+                    InputProps={{ readOnly: !!initialValues.cpf, inputComponent: MaskedInput, inputProps: { mask: masks.cpf } }}
                     required
                 />
                 <TextField
@@ -37,7 +39,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     name="phone"
                     value={values.phone}
                     onChange={handleChange}
-                    InputProps={{ readOnly: !!initialValues.phone }}
+                    InputProps={{ readOnly: !!initialValues.phone, inputComponent: MaskedInput, inputProps: { mask: masks.phone } }}
                     required
                 />
                 <TextField
@@ -58,7 +60,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     name="postcode"
                     value={values.postcode}
                     onChange={handleChange}
-                    InputProps={{ readOnly: !!initialValues.postcode }}
+                    InputProps={{ readOnly: !!initialValues.postcode, inputComponent: MaskedInput, inputProps: { mask: masks.cep } }}
                     required
                 />
                 <TextField
@@ -129,6 +131,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             sx={{ width: "48%" }}
                             required
+                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
                         />
                         <TextField
                             label="Código de segurança"
@@ -137,6 +140,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             sx={{ width: "48%" }}
                             required
+                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
                         />
                     </Box>
                     <TextField

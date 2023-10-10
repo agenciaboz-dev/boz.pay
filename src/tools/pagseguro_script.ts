@@ -30,7 +30,7 @@ export const encrypt = (card: Card): Promise<string> => {
                 // publicKey:
                 //     "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvgwj+Bb1x8SieUMF4o1NWQhgeV4bX0nI7IAa+W+rEVGFk6aNqmKCqzSYLwbw7dwUBWr9GaKyD7aXFvcSGlNimd9/6ix0lGsOoQvzlfPYKn6at10jy8lMxmQPw3u6Z3gX57omXWh2DNHBBxhWTwimXv/nKxIH74F+avvOmjeQHYSz47z71GnEjCQbf05YHkOtbdBW8x8gchyQ6t1nUxohb0keTkmn1YYGNBVA6C6RS1bGVkMVtrzXjtQgwBBAG4JhIExw19ic+4d4YEOWe7UTcKH5EHO1zCAsZorNq9gEfpumTUUI5EX4/ioD2RUvrox0+POHQCwdpNAExGTbRPIPcQIDAQAB",
                 holder: card.cardOwner,
-                number: card.cardNumber.replace(/\s/g, ""),
+                number: card.cardNumber.replace(/\D/g, "").replace(/\s/g, ""),
                 expMonth: expiryMonth,
                 expYear: expiryYear,
                 securityCode: card.cvv,
