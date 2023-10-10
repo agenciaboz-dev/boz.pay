@@ -4,6 +4,7 @@ import { Header } from "../components/Header"
 import colors from "../style/colors"
 import { useLocation, useNavigate } from "react-router-dom"
 import { SuccessText } from "../components/SuccessText"
+import { getParcelas } from "../tools/parcelas"
 
 interface PaidProps {}
 
@@ -15,10 +16,11 @@ const Field: React.FC<{ title: string; value: string }> = ({ title, value }) => 
 )
 
 export const Paid: React.FC<PaidProps> = ({}) => {
-    const data: { order: Order; date: Date; installments: number | string; method: PaymentMethod; type: string; card: { last_digits: string } } =
+    const data: { order: Order; date: Date; installments: number; method: PaymentMethod; type: string; card: { last_digits: string } } =
         useLocation().state.data
 
     const total = `R$ ${data.order.total.replace(".", ",")}`
+    const installments = getParcelas(data.order.total)
 
     const navigate = useNavigate()
 
@@ -68,9 +70,7 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                 </Box>
                 <Box sx={{ alignSelf: "flex-end", width: "15vw", flexDirection: "column", gap: "1vw" }}>
                     <Box sx={{ justifyContent: "space-between" }}>
-                        <p style={{ fontWeight: "normal" }}>
-                            x{data.installments} de {total} sem juros
-                        </p>
+                        <p style={{ fontWeight: "normal" }}>{installments[data.installments - 1].text}</p>
                     </Box>
                     <Box sx={{ justifyContent: "space-between" }}>
                         <p style={{ fontWeight: "normal" }}>Total pago:</p>
