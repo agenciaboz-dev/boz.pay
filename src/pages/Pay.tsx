@@ -3,7 +3,7 @@ import { Box, Button, CircularProgress } from "@mui/material"
 import { Header } from "../components/Header"
 import { PaymentMethods } from "../components/PaymentMethods"
 import colors from "../style/colors"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useIo } from "../hooks/useIo"
 import { OrderDetails } from "../components/OrderDetails"
 import { PaymentDetails } from "../components/PaymentDetails"
@@ -20,6 +20,7 @@ interface PayProps {}
 export const Pay: React.FC<PayProps> = ({}) => {
     const io = useIo()
     const orderId = Number(useParams().orderId)
+    const navigate = useNavigate()
 
     const { snackbar } = useSnackbar()
 
@@ -31,6 +32,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
 
     const handleSubmit = useCallback(
         async (values: Form | CardForm) => {
+            if (loading) return
             let encrypted
             if (paymentMethod == "card") {
                 const card = values as CardForm
@@ -44,13 +46,44 @@ export const Pay: React.FC<PayProps> = ({}) => {
             }
 
             const data = { ...values, id: order?.id, method: paymentMethod, total: order?.total, encrypted }
-            if (loading) return
 
             setLoading(true)
             io.emit("order:pay", data)
         },
         [order]
     )
+
+    useEffect(() => {
+        io.on("pagseguro:paid", (data) => {
+            const id = data.id
+            const charge = data.charge
+            console.log(id)
+
+            if (id == order?.id) {
+                console.log(charge)
+                setLoading(false)
+
+                if (charge.status == "PAID") {
+                    navigate("/paid", {
+                        state: {
+                            data: {
+                                order,
+                                date: new Date(charge.paid_at),
+                                installments: charge.payment_method?.installments,
+                                method: paymentMethod,
+                                type: charge.payment_method.type,
+                                card: charge.payment_method.card,
+                            },
+                        },
+                    })
+                }
+            }
+        })
+
+        return () => {
+            io.off("pagseguro:paid")
+        }
+    }, [order])
 
     useEffect(() => {
         io.emit("order:get", orderId)
@@ -64,19 +97,6 @@ export const Pay: React.FC<PayProps> = ({}) => {
             setLoading(false)
         })
 
-        io.on("pagseguro:paid", (data) => {
-            const id = data.id
-            const charge = data.charge
-
-            if (id == order?.id) {
-                console.log(charge)
-                setLoading(false)
-
-                if (charge.status == "PAID") {
-                }
-            }
-        })
-
         io.on("order:pay:error", (error) => {
             console.log(error)
             snackbar({ severity: "error", text: error.description })
@@ -86,7 +106,6 @@ export const Pay: React.FC<PayProps> = ({}) => {
         return () => {
             io.off("order")
             io.off("order:pay:success")
-            io.off("pagseguro:paid")
             io.off("order:pay:error")
         }
     }, [])

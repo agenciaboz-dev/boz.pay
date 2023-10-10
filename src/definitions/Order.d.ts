@@ -11,7 +11,7 @@ declare interface Order {
     pag_status: string
     error_status?: string
 
-    billing: Blling
+    billing: Billing
     shipping: Shipping
 }
 
