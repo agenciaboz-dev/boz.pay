@@ -16,7 +16,7 @@ export const SuccessText: React.FC<SuccessTextProps> = ({ email }) => {
             </Box>
 
             <p style={{ color: "black", fontWeight: "normal" }}>
-                Acabamos de enviar os dados de seu pedido paara o e-mail <span style={{ fontWeight: "bold" }}>{email}</span>.
+                Acabamos de enviar os dados de seu pedido para o e-mail <span style={{ fontWeight: "bold" }}>{email}</span>.
             </p>
         </Box>
     )
