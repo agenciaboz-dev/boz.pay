@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { Box, Button, CircularProgress } from "@mui/material"
 import { Header } from "../components/Header"
 import { PaymentMethods } from "../components/PaymentMethods"
@@ -12,6 +12,8 @@ import brazilFlag from "../assets/brazil.svg"
 import { getPaymentForm } from "../tools/paymentForm"
 import { Form, Formik } from "formik"
 import { PaymentForm } from "../components/PaymentForm"
+import { useSnackbar } from "burgos-snackbar"
+import { encrypt } from "../tools/pagseguro_script"
 
 interface PayProps {}
 
@@ -19,19 +21,38 @@ export const Pay: React.FC<PayProps> = ({}) => {
     const io = useIo()
     const orderId = Number(useParams().orderId)
 
+    const { snackbar } = useSnackbar()
+
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card")
     const [order, setOrder] = useState<Order>()
     const [loading, setLoading] = useState(false)
 
     const initialValues = getPaymentForm(paymentMethod, order?.billing)
 
-    const handleSubmit = (values: Form | CardForm) => {
-        if (loading) return
-        console.log(values)
+    const handleSubmit = useCallback(
+        async (values: Form | CardForm) => {
+            let encrypted
+            if (paymentMethod == "card") {
+                const card = values as CardForm
+                try {
+                    encrypted = await encrypt(card)
+                    console.log({ encrypted })
+                } catch (error) {
+                    console.error("Encryption failed:", error)
+                    // Handle the error, maybe show a message to the user
+                    return
+                }
+            }
 
-        setLoading(true)
-        io.emit("order:pay", { order: { ...values, id: order?.id, method: paymentMethod, total: order?.total } })
-    }
+            const data = { ...values, id: order?.id, method: paymentMethod, total: order?.total, encrypted }
+            console.log(data)
+            if (loading) return
+
+            setLoading(true)
+            io.emit("order:pay", data)
+        },
+        [order]
+    )
 
     useEffect(() => {
         io.emit("order:get", orderId)
@@ -47,6 +68,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
 
         io.on("order:pay:error", (error) => {
             console.log(error)
+            snackbar({ severity: "error", text: error.description })
             setLoading(false)
         })
 

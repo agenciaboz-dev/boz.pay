@@ -1,14 +1,5 @@
 declare type PaymentMethod = "card" | "pix" | "boleto"
 
-declare interface CardForm extends Form {
-    cardNumber: string
-    expiry: string
-    cvv: string
-    cardOwner: string
-    type: "credit" | "debit"
-    installments: number
-}
-
 declare interface Form {
     name: string
     cpf: string
@@ -22,3 +13,16 @@ declare interface Form {
     state: string
     complement: string
 }
+
+declare interface Card {
+    cardNumber: string
+    expiry: string
+    cvv: string
+    cardOwner: string
+    type: "credit" | "debit"
+}
+
+declare type CardForm = Form &
+    Card & {
+        installments: number
+    }
