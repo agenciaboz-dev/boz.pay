@@ -63,7 +63,7 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                 >
                     <Field
                         title="Forma de pagamento"
-                        value={data.method == "card" ? `${data.type}: **** **** **** ${data.card.last_digits}` : data.method}
+                        value={data.method == "card" ? `${data.type}: **** **** **** ${data.card?.last_digits}` : data.type}
                     />
                     <Field title="Data" value={data.date.toLocaleString("pt-br").replace(",", " -")} />
                     <Field title="Subtotal" value={total} />
