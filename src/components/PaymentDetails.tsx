@@ -57,7 +57,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
         </Box>
     ) : (
         <>
-            <Skeleton variant="rounded" sx={{ width: "30vw", height: "20vw", borderRadius: "1vw" }} />
+            <Skeleton variant="rounded" sx={{ width: "30vw", height: "7vw", borderRadius: "1vw" }} />
         </>
     )
 }

@@ -24,7 +24,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
         </Box>
     ) : (
         <>
-            <Skeleton variant="rounded" sx={{ width: "30vw", height: "50vw", borderRadius: "1vw" }} />
+            <Skeleton variant="rounded" sx={{ width: "30vw", height: "15vw", borderRadius: "1vw" }} />
         </>
     )
 }
