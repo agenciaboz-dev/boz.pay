@@ -76,6 +76,8 @@ export const Pay: React.FC<PayProps> = ({}) => {
                             },
                         },
                     })
+                } else {
+                    snackbar({severity: 'error', text: charge.payment_response.message})
                 }
             }
         })
