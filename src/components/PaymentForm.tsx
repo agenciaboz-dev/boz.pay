@@ -151,9 +151,9 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                         required
                     />
 
-                    <RadioGroup value={(values as CardForm).type || "debit"} onChange={(_, value) => setFieldValue("type", value)}>
-                        <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
+                    <RadioGroup value={(values as CardForm).type || "credit"} onChange={(_, value) => setFieldValue("type", value)}>
                         <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />
+                        <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
                     </RadioGroup>
                 </Box>
             )}

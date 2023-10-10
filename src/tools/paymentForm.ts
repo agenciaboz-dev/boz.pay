@@ -21,7 +21,7 @@ export const getPaymentForm = (method: PaymentMethod, billing?: Billing) => {
             expiry: "",
             cvv: "",
             cardOwner: "",
-            type: "debit",
+            type: "credit",
             installments: 1,
         },
         boleto: notCard,
