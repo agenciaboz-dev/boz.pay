@@ -9,37 +9,117 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
     handleChange,
     paymentMethod,
     setFieldValue,
+    initialValues,
 }) => {
     return (
         <Box sx={{ flexDirection: "column", gap: "1vw", flexWrap: "wrap", height: "90vh", width: paymentMethod == "card" ? "29vw" : "58vw" }}>
             <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                 <h3>DETALHES DE COBRANÇA</h3>
 
-                <TextField label="Nome" name="name" value={values.name} onChange={handleChange} />
-                <TextField label="CPF" name="cpf" value={values.cpf} onChange={handleChange} />
-                <TextField label="Telefone" name="phone" value={values.phone} onChange={handleChange} />
-                <TextField label="E-mail" name="email" value={values.email} onChange={handleChange} />
+                <TextField
+                    label="Nome"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.name }}
+                    required
+                />
+                <TextField
+                    label="CPF"
+                    name="cpf"
+                    value={values.cpf}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.cpf }}
+                    required
+                />
+                <TextField
+                    label="Telefone"
+                    name="phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.phone }}
+                    required
+                />
+                <TextField
+                    label="E-mail"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.email }}
+                    required
+                />
             </Box>
 
             <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                 <h3>ENDEREÇO</h3>
 
-                <TextField label="CEP" name="postcode" value={values.postcode} onChange={handleChange} />
-                <TextField label="Logradouro" name="address" value={values.address} onChange={handleChange} />
+                <TextField
+                    label="CEP"
+                    name="postcode"
+                    value={values.postcode}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.postcode }}
+                    required
+                />
+                <TextField
+                    label="Logradouro"
+                    name="address"
+                    value={values.address}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.address }}
+                    required
+                />
                 <Box sx={{ gap: "1vw" }}>
-                    <TextField label="Bairro" name="district" value={values.district} onChange={handleChange} sx={{ width: "48%" }} />
-                    <TextField label="Complemento" name="complement" value={values.complement} onChange={handleChange} sx={{ width: "48%" }} />
+                    <TextField
+                        label="Bairro"
+                        name="district"
+                        value={values.district}
+                        onChange={handleChange}
+                        sx={{ width: "48%" }}
+                        InputProps={{ readOnly: !!initialValues.district }}
+                        required
+                    />
+                    <TextField
+                        label="Complemento"
+                        name="complement"
+                        value={values.complement}
+                        onChange={handleChange}
+                        sx={{ width: "48%" }}
+                        InputProps={{ readOnly: !!initialValues.complement }}
+                    />
                 </Box>
                 <Box sx={{ gap: "1vw" }}>
-                    <TextField label="Cidade" name="city" value={values.city} onChange={handleChange} sx={{ width: "48%" }} />
-                    <TextField label="Estado" name="state" value={values.state} onChange={handleChange} sx={{ width: "48%" }} />
+                    <TextField
+                        label="Cidade"
+                        name="city"
+                        value={values.city}
+                        onChange={handleChange}
+                        sx={{ width: "48%" }}
+                        InputProps={{ readOnly: !!initialValues.city }}
+                        required
+                    />
+                    <TextField
+                        label="Estado"
+                        name="state"
+                        value={values.state}
+                        onChange={handleChange}
+                        sx={{ width: "48%" }}
+                        InputProps={{ readOnly: !!initialValues.state }}
+                        required
+                    />
                 </Box>
             </Box>
 
             {paymentMethod == "card" && (
                 <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                     <h3>DADOS DO TITULAR DO CARTÃO</h3>
-                    <TextField label="Número do cartão" name="cardNumber" value={(values as CardForm).cardNumber || ""} onChange={handleChange} />
+                    <TextField
+                        label="Número do cartão"
+                        name="cardNumber"
+                        value={(values as CardForm).cardNumber || ""}
+                        onChange={handleChange}
+                        required
+                    />
 
                     <Box sx={{ gap: "1vw" }}>
                         <TextField
@@ -48,6 +128,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             value={(values as CardForm).expiry || ""}
                             onChange={handleChange}
                             sx={{ width: "48%" }}
+                            required
                         />
                         <TextField
                             label="Código de segurança"
@@ -55,9 +136,16 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             value={(values as CardForm).cvv || ""}
                             onChange={handleChange}
                             sx={{ width: "48%" }}
+                            required
                         />
                     </Box>
-                    <TextField label="Nome do titular" name="cardOwner" value={(values as CardForm).cardOwner || ""} onChange={handleChange} />
+                    <TextField
+                        label="Nome do titular"
+                        name="cardOwner"
+                        value={(values as CardForm).cardOwner || ""}
+                        onChange={handleChange}
+                        required
+                    />
 
                     <RadioGroup value={(values as CardForm).type || "debit"} onChange={(_, value) => setFieldValue("type", value)}>
                         <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
