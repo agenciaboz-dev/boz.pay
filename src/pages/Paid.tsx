@@ -69,9 +69,11 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                     <Field title="Subtotal" value={total} />
                 </Box>
                 <Box sx={{ alignSelf: "flex-end", width: "15vw", flexDirection: "column", gap: "1vw" }}>
-                    <Box sx={{ justifyContent: "space-between" }}>
-                        <p style={{ fontWeight: "normal" }}>{installments[data.installments - 1].text}</p>
-                    </Box>
+                    {data.method == "card" && (
+                        <Box sx={{ justifyContent: "space-between" }}>
+                            <p style={{ fontWeight: "normal" }}>{installments[data.installments - 1].text}</p>
+                        </Box>
+                    )}
                     <Box sx={{ justifyContent: "space-between" }}>
                         <p style={{ fontWeight: "normal" }}>Total pago:</p>
                         <p style={{ color: "black" }}>{total}</p>
