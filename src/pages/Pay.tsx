@@ -50,7 +50,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
             setLoading(true)
             io.emit("order:pay", data)
         },
-        [order, paymentMethod]
+        [order, paymentMethod, loading]
     )
 
     useEffect(() => {
@@ -77,7 +77,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
                         },
                     })
                 } else {
-                    snackbar({severity: 'error', text: charge.payment_response.message})
+                    snackbar({ severity: "error", text: charge.payment_response.message })
                 }
             }
         })
@@ -85,7 +85,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
         return () => {
             io.off("pagseguro:paid")
         }
-    }, [order])
+    }, [order, paymentMethod])
 
     useEffect(() => {
         io.emit("order:get", orderId)
