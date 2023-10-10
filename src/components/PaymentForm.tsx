@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, FormControlLabel, Radio, RadioGroup, TextField } from "@mui/material"
+import { Box, FormControlLabel, Grid, Radio, RadioGroup, TextField } from "@mui/material"
 import { FormikProps } from "formik"
 import MaskedInput from "./MaskedInput"
 import masks from "../tools/masks"
@@ -71,45 +71,55 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     InputProps={{ readOnly: !!initialValues.address }}
                     required
                 />
-                <Box sx={{ gap: "1vw" }}>
-                    <TextField
-                        label="Bairro"
-                        name="district"
-                        value={values.district}
-                        onChange={handleChange}
-                        sx={{ width: "48%" }}
-                        InputProps={{ readOnly: !!initialValues.district }}
-                        required
-                    />
-                    <TextField
-                        label="Complemento"
-                        name="complement"
-                        value={values.complement}
-                        onChange={handleChange}
-                        sx={{ width: "48%" }}
-                        InputProps={{ readOnly: !!initialValues.complement }}
-                    />
-                </Box>
-                <Box sx={{ gap: "1vw" }}>
-                    <TextField
-                        label="Cidade"
-                        name="city"
-                        value={values.city}
-                        onChange={handleChange}
-                        sx={{ width: "48%" }}
-                        InputProps={{ readOnly: !!initialValues.city }}
-                        required
-                    />
-                    <TextField
-                        label="Estado"
-                        name="state"
-                        value={values.state}
-                        onChange={handleChange}
-                        sx={{ width: "48%" }}
-                        InputProps={{ readOnly: !!initialValues.state }}
-                        required
-                    />
-                </Box>
+                <Grid container spacing={1.5}>
+                    <Grid item xs={6}>
+                        <TextField
+                            label="Bairro"
+                            name="district"
+                            value={values.district}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.district }}
+                            fullWidth
+                            required
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            label="Complemento"
+                            name="complement"
+                            value={values.complement}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.complement }}
+                            fullWidth
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1.5}>
+                    <Grid item xs={6}>
+                        <TextField
+                            label="Cidade"
+                            name="city"
+                            fullWidth
+                            value={values.city}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.city }}
+                            required
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            label="Estado"
+                            name="state"
+                            fullWidth
+                            value={values.state}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.state }}
+                            required
+                        />
+                    </Grid>
+                </Grid>
+                <Box sx={{ gap: "1vw" }}></Box>
             </Box>
 
             {paymentMethod == "card" && (
@@ -123,26 +133,29 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                         required
                     />
 
-                    <Box sx={{ gap: "1vw" }}>
-                        <TextField
-                            label="Validade"
-                            name="expiry"
-                            value={(values as CardForm).expiry || ""}
-                            onChange={handleChange}
-                            sx={{ width: "48%" }}
-                            required
-                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
-                        />
-                        <TextField
-                            label="Código de segurança"
-                            name="cvv"
-                            value={(values as CardForm).cvv || ""}
-                            onChange={handleChange}
-                            sx={{ width: "48%" }}
-                            required
-                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
-                        />
-                    </Box>
+                    <Grid container spacing={1.5}>
+                        <Grid item xs={6}>
+                            <TextField
+                                fullWidth
+                                label="Validade"
+                                name="expiry"
+                                value={(values as CardForm).expiry}
+                                onChange={handleChange}
+                                InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                fullWidth
+                                label="Código de segurança"
+                                name="cvv"
+                                value={(values as CardForm).cvv}
+                                onChange={handleChange}
+                                InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
+                            />
+                        </Grid>
+                    </Grid>
+
                     <TextField
                         label="Nome do titular"
                         name="cardOwner"
