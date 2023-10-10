@@ -1,4 +1,4 @@
-export const getPaymentForm = (method: PaymentMethod, billing: Billing) => {
+export const getPaymentForm = (method: PaymentMethod, billing?: Billing) => {
     const notCard = {
         name: `${billing?.first_name || ""} ${billing?.last_name || ""}`,
         cpf: "",
