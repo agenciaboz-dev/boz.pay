@@ -1,5 +1,9 @@
-declare global {
-    interface Window {
-        PagSeguro?: any
+declare interface QrCode {
+    amount: {
+        value: number
     }
+
+    expiration_date: string
+    id: string
+    text: string
 }

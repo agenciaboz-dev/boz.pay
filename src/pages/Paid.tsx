@@ -25,8 +25,7 @@ export const Paid: React.FC<PaidProps> = ({}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!data.order) navigate("/404")
-        console.log(data.order)
+        if (!data) navigate("/404")
     }, [])
 
     return data.order ? (

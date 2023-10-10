@@ -82,8 +82,15 @@ export const Pay: React.FC<PayProps> = ({}) => {
             }
         })
 
+        io.on("qrcode", (data: QrCode) => {
+            setLoading(false)
+            console.log(data)
+            navigate("/pix", { state: { data: { order, qrcode: data } } })
+        })
+
         return () => {
             io.off("pagseguro:paid")
+            io.off("qrcode")
         }
     }, [order, paymentMethod])
 
