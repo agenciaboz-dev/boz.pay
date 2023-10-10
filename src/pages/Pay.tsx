@@ -14,6 +14,7 @@ import { Form, Formik } from "formik"
 import { PaymentForm } from "../components/PaymentForm"
 import { useSnackbar } from "burgos-snackbar"
 import { encrypt } from "../tools/pagseguro_script"
+import { LoadingOverlay } from "../components/LoadingOverlay"
 
 interface PayProps {}
 
@@ -121,6 +122,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
 
     return (
         <Box sx={{ bgcolor: "background.default", color: colors.unactive, fontWeight: "bold", flexDirection: "column", overflow: "hidden" }}>
+            <LoadingOverlay open={loading} />
             <Header />
             <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize>
                 {(formikProps) => (
