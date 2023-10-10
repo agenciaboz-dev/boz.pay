@@ -36,7 +36,6 @@ export const Pay: React.FC<PayProps> = ({}) => {
                 const card = values as CardForm
                 try {
                     encrypted = await encrypt(card)
-                    console.log({ encrypted })
                 } catch (error) {
                     console.error("Encryption failed:", error)
                     // Handle the error, maybe show a message to the user
@@ -45,7 +44,6 @@ export const Pay: React.FC<PayProps> = ({}) => {
             }
 
             const data = { ...values, id: order?.id, method: paymentMethod, total: order?.total, encrypted }
-            console.log(data)
             if (loading) return
 
             setLoading(true)
@@ -66,6 +64,19 @@ export const Pay: React.FC<PayProps> = ({}) => {
             setLoading(false)
         })
 
+        io.on("pagseguro:paid", (data) => {
+            const id = data.id
+            const charge = data.charge
+
+            if (id == order?.id) {
+                console.log(charge)
+                setLoading(false)
+
+                if (charge.status == "PAID") {
+                }
+            }
+        })
+
         io.on("order:pay:error", (error) => {
             console.log(error)
             snackbar({ severity: "error", text: error.description })
@@ -75,6 +86,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
         return () => {
             io.off("order")
             io.off("order:pay:success")
+            io.off("pagseguro:paid")
             io.off("order:pay:error")
         }
     }, [])

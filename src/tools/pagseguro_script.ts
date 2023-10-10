@@ -36,7 +36,6 @@ export const encrypt = (card: Card): Promise<string> => {
                 securityCode: card.cvv,
             })
 
-            console.log(pagseguro_card)
             document.body.removeChild(script)
             resolve(pagseguro_card.encryptedCard) // Resolve the Promise with the encrypted card
         }
