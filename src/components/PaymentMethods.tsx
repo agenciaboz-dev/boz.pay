@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, MenuItem } from "@mui/material"
+import { Box, MenuItem, useMediaQuery } from "@mui/material"
 import CreditCardIcon from "@mui/icons-material/CreditCard"
 import PixIcon from "@mui/icons-material/Pix"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
@@ -11,6 +11,8 @@ interface PaymentMethodsProps {
 }
 
 export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, setPaymentMethod }) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     const methods = [
         {
             name: "Cartão",
@@ -31,10 +33,14 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
     ]
 
     return (
-        <Box sx={{ flexDirection: "column", gap: "2vw" }}>
+        <Box sx={{ flexDirection: "column", gap: "2vw", textAlign: isMobile? "center" : "start", padding: "2vw 5vw" }}>
             <h3>MÉTODOS DE PAGAMENTO</h3>
 
-            <Box sx={{ gap: "1vw" }}>
+            <Box
+                sx={{
+                    gap: "1vw",
+                    justifyContent: isMobile? "space-between" : "start",
+                }}>
                 {methods.map((item) => {
                     const current = paymentMethod == item.method
                     return (
@@ -45,7 +51,7 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
                                 border: `1px solid ${colors.border}`,
                                 borderRadius: "1vw",
                                 color: current ? "white" : colors.unactive,
-                                width: "10vw",
+                                width: isMobile? "32%" : "10vw",
                                 bgcolor: current ? colors.primary : "white",
                                 pointerEvents: current ? "none" : "auto",
                             }}

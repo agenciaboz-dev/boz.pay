@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { Box, Button, CircularProgress } from "@mui/material"
+import { Box, Button, CircularProgress, useMediaQuery } from "@mui/material"
 import { Header } from "../components/Header"
 import { PaymentMethods } from "../components/PaymentMethods"
 import colors from "../style/colors"
@@ -19,6 +19,8 @@ import { LoadingOverlay } from "../components/LoadingOverlay"
 interface PayProps {}
 
 export const Pay: React.FC<PayProps> = ({}) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     const io = useIo()
     const orderId = Number(useParams().orderId)
     const navigate = useNavigate()
@@ -121,17 +123,38 @@ export const Pay: React.FC<PayProps> = ({}) => {
     }, [])
 
     return (
-        <Box sx={{ bgcolor: "background.default", color: colors.unactive, fontWeight: "bold", flexDirection: "column", overflow: "hidden" }}>
+        <Box
+            sx={{
+                bgcolor: "background.default",
+                color: colors.unactive,
+                fontWeight: "bold",
+                flexDirection: "column",
+                overflow: "hidden",
+            }}
+        >
             <LoadingOverlay open={loading} />
             <Header />
             <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize>
                 {(formikProps) => (
                     <Form>
-                        <Box sx={{ flexDirection: "column", padding: "2vw 5vw", gap: "2vw", height: "90vh", overflowY: "auto" }}>
+                        <Box
+                            sx={{
+                                flexDirection: "column",
+                                gap: "2vw",
+                                height: isMobile? "100vh" : "90vh",
+                                overflowX: "hidden",
+                                overflowY: "auto",
+                            }}
+                        >
                             <PaymentMethods paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
-                            <Box sx={{ justifyContent: "space-between" }}>
+                            <Box
+                                sx={{
+                                    justifyContent: "space-between",
+                                    flexDirection: isMobile? "column" : "row",
+                                    padding: "2vw 5vw",
+                                }}>
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />
-                                <Box sx={{ flexDirection: "column", gap: "1vw", width: "30vw" }}>
+                                <Box sx={{ flexDirection: "column", gap: "1vw", width: isMobile? "90vw" : "30vw" }}>
                                     <OrderDetails order={order} />
                                     <PaymentDetails
                                         order={order}

@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, FormControlLabel, Grid, Radio, RadioGroup, TextField } from "@mui/material"
+import { Box, FormControlLabel, Grid, Radio, RadioGroup, TextField, useMediaQuery } from "@mui/material"
 import { FormikProps } from "formik"
 import MaskedInput from "./MaskedInput"
 import masks from "../tools/masks"
@@ -13,8 +13,18 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
     setFieldValue,
     initialValues,
 }) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     return (
-        <Box sx={{ flexDirection: "column", gap: "1vw", flexWrap: "wrap", height: "90vh", width: paymentMethod == "card" ? "29vw" : "58vw" }}>
+        <Box
+            sx={{
+                flexDirection: "column",
+                gap: "1vw",
+                flexWrap: "wrap",
+                height: isMobile? "auto" : "90vh",
+                width: isMobile? "90vw" : (paymentMethod == "card" ? "29vw" : "58vw")
+                }}
+            >
             <Box sx={{ flexDirection: "column", gap: "1vw" }}>
                 <h3>DETALHES DE COBRANÇA</h3>
 
