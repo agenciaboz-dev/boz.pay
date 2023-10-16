@@ -45,7 +45,7 @@ export const Shipping: React.FC<ShippingProps> = ({ shipping }) => {
             {quoteList ? (
                 <QuoteDetails quoteList={quoteList} />
             ) : (
-                <Skeleton variant="rounded" sx={{ width: "25vw", height: "10vw", borderRadius: "1vw", alignSelf: "center" }} />
+                <Skeleton variant="rounded" sx={{ width: "25vw", height: "7vw", borderRadius: "1vw", alignSelf: "center" }} />
             )}
         </Box>
     )

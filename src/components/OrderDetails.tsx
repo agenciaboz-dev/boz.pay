@@ -16,9 +16,9 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
                 border: `1px solid ${colors.border}`,
                 flexDirection: "column",
                 bgcolor: "white",
-                padding: isMobile? "5vw" : "1vw 2vw",
+                padding: isMobile ? "5vw" : "1vw 2vw",
                 borderRadius: "1vw",
-                gap: isMobile? "5vw"  : "1vw",
+                gap: isMobile ? "5vw" : "1vw",
             }}
         >
             <h3>RESUMO DO PEDIDO</h3>
@@ -26,7 +26,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
         </Box>
     ) : (
         <>
-            <Skeleton variant="rounded" sx={{ width: "30vw", height: "15vw", borderRadius: "1vw" }} />
+            <Skeleton variant="rounded" sx={{ width: "30vw", height: "23vw", borderRadius: "1vw" }} />
         </>
     )
 }
