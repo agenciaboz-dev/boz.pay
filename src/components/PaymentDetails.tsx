@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Box, MenuItem, Skeleton, TextField } from "@mui/material"
+import { Box, MenuItem, Skeleton, TextField, useMediaQuery } from "@mui/material"
 import colors from "../style/colors"
 import { CurrencyText } from "./CurrencyText"
 import { getParcelas } from "../tools/parcelas"
@@ -12,8 +12,8 @@ interface PaymentDetailsProps {
 }
 
 export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod, formikValues, setInstallments }) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
     const notInstallments = paymentMethod != "card" || (formikValues as CardForm).type != "credit"
-
     const [parcelamento, setParcelamento] = useState(1)
 
     useEffect(() => {
@@ -31,8 +31,8 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
                 flexDirection: "column",
                 borderRadius: "1vw",
                 border: `1px solid ${colors.border}`,
-                padding: "1vw 2vw",
-                gap: "1vw",
+                padding: isMobile? "5vw" : "1vw 2vw",
+                gap: isMobile? "5vw" : "1vw",
             }}
         >
             <TextField

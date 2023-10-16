@@ -19,13 +19,13 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
         <Box
             sx={{
                 flexDirection: "column",
-                gap: "1vw",
+                gap: isMobile? "5vw" : "1vw",
                 flexWrap: "wrap",
                 height: isMobile? "auto" : "90vh",
                 width: isMobile? "90vw" : (paymentMethod == "card" ? "29vw" : "58vw")
                 }}
             >
-            <Box sx={{ flexDirection: "column", gap: "1vw" }}>
+            <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
                 <h3>DETALHES DE COBRANÇA</h3>
 
                 <TextField
@@ -62,7 +62,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                 />
             </Box>
 
-            <Box sx={{ flexDirection: "column", gap: "1vw" }}>
+            <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
                 <h3>ENDEREÇO</h3>
 
                 <TextField
@@ -133,7 +133,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
             </Box>
 
             {paymentMethod == "card" && (
-                <Box sx={{ flexDirection: "column", gap: "1vw" }}>
+                <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
                     <h3>DADOS DO TITULAR DO CARTÃO</h3>
                     <TextField
                         label="Número do cartão"
@@ -174,7 +174,12 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                         required
                     />
 
-                    <RadioGroup value={(values as CardForm).type || "credit"} onChange={(_, value) => setFieldValue("type", value)}>
+                    <RadioGroup value={(values as CardForm).type || "credit"} onChange={(_, value) => setFieldValue("type", value)}
+                        sx={{
+                            flexDirection: isMobile? "row" : "column",
+                            justifyContent: "space-around"
+                        }}
+                    >
                         <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />
                         <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
                     </RadioGroup>

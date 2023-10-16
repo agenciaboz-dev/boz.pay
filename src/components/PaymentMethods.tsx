@@ -33,7 +33,7 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
     ]
 
     return (
-        <Box sx={{ flexDirection: "column", gap: "2vw", textAlign: isMobile? "center" : "start", padding: "2vw 5vw" }}>
+        <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "2vw", textAlign: "start", padding: isMobile? "5vw 5vw 0" : "2vw 5vw" }}>
             <h3>MÉTODOS DE PAGAMENTO</h3>
 
             <Box

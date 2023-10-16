@@ -151,10 +151,11 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                 sx={{
                                     justifyContent: "space-between",
                                     flexDirection: isMobile? "column" : "row",
-                                    padding: "2vw 5vw",
+                                    padding: isMobile? "5vw 5vw 15vw" : "2vw 5vw",
+                                    gap: isMobile? "5vw" : ""
                                 }}>
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />
-                                <Box sx={{ flexDirection: "column", gap: "1vw", width: isMobile? "90vw" : "30vw" }}>
+                                <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw", width: isMobile? "90vw" : "30vw" }}>
                                     <OrderDetails order={order} />
                                     <PaymentDetails
                                         order={order}
@@ -171,7 +172,14 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                     >
                                         {loading ? <CircularProgress size="1.5rem" color="secondary" /> : "Finalizar compra"}
                                     </Button>
-                                    <Box sx={{ gap: "1vw", fontWeight: "normal", alignItems: "center", justifyContent: "space-between" }}>
+                                    <Box
+                                        sx={{
+                                            gap: "1vw",
+                                            fontWeight: "normal",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                        }}
+                                    >
                                         <p>Esta operação está sendo realizada no Brasil</p>
                                         <img src={brazilFlag} alt="Brasil" />
                                     </Box>
