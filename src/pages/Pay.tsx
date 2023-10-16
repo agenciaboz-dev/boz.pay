@@ -151,7 +151,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                 sx={{
                                     justifyContent: "space-between",
                                     flexDirection: isMobile? "column" : "row",
-                                    padding: isMobile? "5vw 5vw 15vw" : "2vw 5vw",
+                                    padding: isMobile? "5vw 5vw 20vw" : "2vw 5vw",
                                     gap: isMobile? "5vw" : ""
                                 }}>
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />

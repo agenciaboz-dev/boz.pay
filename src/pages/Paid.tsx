@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Box } from "@mui/material"
+import { Box, useMediaQuery } from "@mui/material"
 import { Header } from "../components/Header"
 import colors from "../style/colors"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -16,6 +16,8 @@ const Field: React.FC<{ title: string; value: string }> = ({ title, value }) => 
 )
 
 export const Paid: React.FC<PaidProps> = ({}) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     const data: { order: Order; date: Date; installments: number; method: PaymentMethod; type: string; card: { last_digits: string } } =
         useLocation().state.data
 
@@ -44,7 +46,14 @@ export const Paid: React.FC<PaidProps> = ({}) => {
             <SuccessText email={data.order.billing.email} />
 
             <Box
-                sx={{ border: `1px solid ${colors.border}`, borderRadius: "2vw", width: "80vw", padding: "2vw", flexDirection: "column", gap: "2vw" }}
+                sx={{
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: "2vw",
+                    width: isMobile? "90vw" : "80vw",
+                    padding: isMobile? "5vw" : "2vw",
+                    flexDirection: "column",
+                    gap: isMobile? "5vw" : "2vw"
+                }}
             >
                 <p style={{ fontWeight: "normal", color: colors.primary }}>
                     <span style={{ fontWeight: "bold" }}>PEDIDO: </span>
@@ -56,8 +65,8 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                         borderTop: `1px solid ${colors.border}`,
                         borderBottom: `1px solid ${colors.border}`,
                         flexDirection: "column",
-                        padding: "2vw 0",
-                        gap: "2vw",
+                        padding: isMobile? "5vw 0" : "2vw 0",
+                        gap: isMobile? "5vw" : "2vw",
                     }}
                 >
                     <Field
@@ -67,7 +76,7 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                     <Field title="Data" value={data.date.toLocaleString("pt-br").replace(",", " -")} />
                     <Field title="Subtotal" value={total} />
                 </Box>
-                <Box sx={{ alignSelf: "flex-end", width: "15vw", flexDirection: "column", gap: "1vw" }}>
+                <Box sx={{ alignSelf: "flex-end", width: isMobile? "80vw" : "15vw", flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
                     {data.method == "card" && (
                         <Box sx={{ justifyContent: "space-between" }}>
                             <p style={{ fontWeight: "normal" }}>{installments[data.installments - 1]?.text}</p>

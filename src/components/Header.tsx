@@ -14,12 +14,12 @@ export const Header: React.FC<HeaderProps> = ({}) => {
                 width: "100vw",
                 justifyContent: "center",
                 alignItems: "center",
-                height: isMobile? "10vw" : "7vw",
+                height: isMobile? "15vw" : "5vw",
                 borderBottom: `1px solid ${colors.border}`,
                 bgcolor: "white",
             }}
         >
-            <img src={logo} alt="Boz" style={{ width: isMobile? "10vw" : "7vw" }} />
+            <img src={logo} alt="Boz" style={{ width: isMobile? "15vw" : "5vw" }} />
         </Box>
     )
 }

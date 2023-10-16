@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, TextField, useMediaQuery } from "@mui/material"
 import colors from "../style/colors"
 import { useLocation, useNavigate } from "react-router-dom"
 import { SuccessText } from "../components/SuccessText"
@@ -11,6 +11,8 @@ import { useIo } from "../hooks/useIo"
 interface PixProps {}
 
 export const Pix: React.FC<PixProps> = ({}) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     const data: { order: Order; qrcode: QrCode } = useLocation().state.data
 
     const total = `R$ ${data.order.total.replace(".", ",")}`
@@ -73,36 +75,56 @@ export const Pix: React.FC<PixProps> = ({}) => {
                 flexDirection: "column",
                 overflow: "hidden",
                 alignItems: "center",
-                gap: "3vw",
             }}
-        >
+            >
             <Header />
-            <SuccessText email={data.order.billing.email} />
-
             <Box
                 sx={{
-                    border: `1px solid ${colors.border}`,
-                    borderRadius: "2vw",
-                    width: "80vw",
-                    padding: "2vw",
                     flexDirection: "column",
-                    gap: "2vw",
                     alignItems: "center",
+                    height: "100vh",
+                    overflowY: "auto",
+                    gap: "2vw",
+                    padding: isMobile? "0 0 20vw 0" : "2vw 0 10vw 0",
                 }}
             >
-                <h3 style={{ color: colors.primary }}>FINALIZE O PAGAMENTO USANDO PIX!</h3>
-
-                <Box sx={{ flexDirection: "column", borderTop: `1px solid ${colors.border}`, padding: "2vw 0", gap: "2vw", fontWeight: "normal" }}>
-                    <p>Você pode utilizar a câmera do seu celular para ler o QR CODE ou copiar o código e pagar no aplicativo de seu banco:</p>
-
-                    <Box sx={{ gap: "1vw" }}>
-                        <QRCode value={data.qrcode.text} size={width * 0.1} bgColor={colors.background} />
-
-                        <Box sx={{ flexDirection: "column", width: "80%", gap: "1vw", padding: "0.5vw 0" }}>
-                            <TextField value={data.qrcode.text} multiline InputProps={{ readOnly: true }} />
-                            <Button variant="contained" sx={{ alignSelf: "flex-end", color: "white" }} onClick={handleCopy}>
+                <SuccessText email={data.order.billing.email} />
+                <Box
+                    sx={{
+                        border: `1px solid ${colors.border}`,
+                        borderRadius: "2vw",
+                        width: isMobile? "90vw" : "80vw",
+                        padding: isMobile? "5vw" : "1vw",
+                        flexDirection: "column",
+                        gap: isMobile? "5vw" : "1vw",
+                        alignItems: "center",
+                    }}
+                >
+                    <h3 style={{ color: colors.primary, textAlign: "center" }}>FINALIZE O PAGAMENTO USANDO PIX!</h3>
+                    <Box
+                        sx={{
+                            flexDirection: "column",
+                            borderTop: `1px solid ${colors.border}`,
+                            padding: isMobile? "5vw 0 0" : "1vw 0",
+                            gap: isMobile? "2vw" : "1vw",
+                            fontWeight: "normal",
+                            textAlign: "center",
+                            width: "100%"
+                        }}
+                    >
+                        <p>Você pode utilizar a câmera do seu celular para ler o QR CODE ou copiar o código e pagar no aplicativo de seu banco:</p>
+                        <Box
+                            sx={{
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: isMobile? "5vw" : "1vw",
+                            }}
+                        >
+                            <QRCode value={data.qrcode.text} size={isMobile? (width * 0.8) : (width * 0.2)} bgColor={colors.background} />
+                            <Button variant="contained" sx={{ alignSelf: "center", color: "white" }} onClick={handleCopy}>
                                 Copiar código
                             </Button>
+                            <TextField value={data.qrcode.text} multiline InputProps={{ readOnly: true }} sx={{ width: "100%" }} />
                         </Box>
                     </Box>
                 </Box>
