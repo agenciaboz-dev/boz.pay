@@ -1,14 +1,22 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Box, MenuItem, TextField } from "@mui/material"
 import { QuoteComponent } from "./QuoteComponent"
 import { CurrencyText } from "./CurrencyText"
+import { useTotalValue } from "../hooks/useTotalValue"
 
 interface QuoteDetailsProps {
     quoteList: Quote[]
+    order: Order
 }
 
-export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList }) => {
+export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) => {
+    const { setTotalValue } = useTotalValue()
+
     const [selectedQuote, setSelectedQuote] = useState(quoteList[0].ServiceCode)
+
+    useEffect(() => {
+        setTotalValue(Number(order.total) + Number(quoteList.find((quote) => quote.ServiceCode == selectedQuote)!.ShippingPrice))
+    }, [])
 
     return (
         <>
@@ -19,7 +27,10 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList }) => {
                     select
                     value={selectedQuote}
                     onChange={(ev) => {
-                        setSelectedQuote(quoteList.find((quote) => quote.ServiceCode == ev.target.value)!.ServiceCode)
+                        const quote = quoteList.find((quote) => quote.ServiceCode == ev.target.value)!
+
+                        setTotalValue(Number(order.total) + Number(quote.ShippingPrice))
+                        setSelectedQuote(quote.ServiceCode)
                     }}
                     InputProps={{ sx: { paddingRight: "5vw" } }}
                 >

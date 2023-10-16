@@ -15,17 +15,19 @@ import { PaymentForm } from "../components/PaymentForm"
 import { useSnackbar } from "burgos-snackbar"
 import { encrypt } from "../tools/pagseguro_script"
 import { LoadingOverlay } from "../components/LoadingOverlay"
+import { useTotalValue } from "../hooks/useTotalValue"
 
 interface PayProps {}
 
 export const Pay: React.FC<PayProps> = ({}) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+    const isMobile = useMediaQuery("(orientation: portrait)")
 
     const io = useIo()
     const orderId = Number(useParams().orderId)
     const navigate = useNavigate()
 
     const { snackbar } = useSnackbar()
+    const { setTotalValue, totalValue } = useTotalValue()
 
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card")
     const [order, setOrder] = useState<Order>()
@@ -48,12 +50,12 @@ export const Pay: React.FC<PayProps> = ({}) => {
                 }
             }
 
-            const data = { ...values, id: order?.id, method: paymentMethod, total: order?.total, encrypted }
+            const data = { ...values, id: order?.id, method: paymentMethod, total: totalValue.toFixed(2), encrypted }
 
             setLoading(true)
             io.emit("order:pay", data)
         },
-        [order, paymentMethod, loading]
+        [order, paymentMethod, loading, totalValue]
     )
 
     useEffect(() => {
@@ -96,6 +98,12 @@ export const Pay: React.FC<PayProps> = ({}) => {
             io.off("qrcode")
         }
     }, [order, paymentMethod])
+
+    useEffect(() => {
+        if (order) {
+            setTotalValue(Number(order.total))
+        }
+    }, [order])
 
     useEffect(() => {
         io.emit("order:get", orderId)
@@ -141,7 +149,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
                             sx={{
                                 flexDirection: "column",
                                 gap: "2vw",
-                                height: isMobile? "100vh" : "90vh",
+                                height: isMobile ? "100vh" : "90vh",
                                 overflowX: "hidden",
                                 overflowY: "auto",
                             }}
@@ -150,12 +158,13 @@ export const Pay: React.FC<PayProps> = ({}) => {
                             <Box
                                 sx={{
                                     justifyContent: "space-between",
-                                    flexDirection: isMobile? "column" : "row",
-                                    padding: isMobile? "5vw 5vw 20vw" : "2vw 5vw",
-                                    gap: isMobile? "5vw" : ""
-                                }}>
+                                    flexDirection: isMobile ? "column" : "row",
+                                    padding: isMobile ? "5vw 5vw 20vw" : "2vw 5vw",
+                                    gap: isMobile ? "5vw" : "",
+                                }}
+                            >
                                 <PaymentForm {...formikProps} paymentMethod={paymentMethod} />
-                                <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw", width: isMobile? "90vw" : "30vw" }}>
+                                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw", width: isMobile ? "90vw" : "30vw" }}>
                                     <OrderDetails order={order} />
                                     <PaymentDetails
                                         order={order}

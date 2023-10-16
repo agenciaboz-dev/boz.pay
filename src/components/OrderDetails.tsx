@@ -22,7 +22,7 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
             }}
         >
             <h3>RESUMO DO PEDIDO</h3>
-            <Shipping shipping={order.shipping} />
+            <Shipping order={order} />
         </Box>
     ) : (
         <>

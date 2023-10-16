@@ -5,10 +5,12 @@ import { useIo } from "../hooks/useIo"
 import { QuoteDetails } from "./QuoteDetails"
 
 interface ShippingProps {
-    shipping: Shipping
+    order: Order
 }
 
-export const Shipping: React.FC<ShippingProps> = ({ shipping }) => {
+export const Shipping: React.FC<ShippingProps> = ({ order }) => {
+    const shipping = order.shipping
+
     const isMobile = useMediaQuery("(orientation: portrait)")
     const io = useIo()
 
@@ -43,7 +45,7 @@ export const Shipping: React.FC<ShippingProps> = ({ shipping }) => {
             </Box>
 
             {quoteList ? (
-                <QuoteDetails quoteList={quoteList} />
+                <QuoteDetails quoteList={quoteList} order={order} />
             ) : (
                 <Skeleton variant="rounded" sx={{ width: "25vw", height: "7vw", borderRadius: "1vw", alignSelf: "center" }} />
             )}

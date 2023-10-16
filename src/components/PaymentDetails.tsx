@@ -3,6 +3,7 @@ import { Box, MenuItem, Skeleton, TextField, useMediaQuery } from "@mui/material
 import colors from "../style/colors"
 import { CurrencyText } from "./CurrencyText"
 import { getParcelas } from "../tools/parcelas"
+import { useTotalValue } from "../hooks/useTotalValue"
 
 interface PaymentDetailsProps {
     order?: Order
@@ -12,8 +13,11 @@ interface PaymentDetailsProps {
 }
 
 export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMethod, formikValues, setInstallments }) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+    const isMobile = useMediaQuery("(orientation: portrait)")
+    const { totalValue } = useTotalValue()
+
     const notInstallments = paymentMethod != "card" || (formikValues as CardForm).type != "credit"
+
     const [parcelamento, setParcelamento] = useState(1)
 
     useEffect(() => {
@@ -31,8 +35,8 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
                 flexDirection: "column",
                 borderRadius: "1vw",
                 border: `1px solid ${colors.border}`,
-                padding: isMobile? "5vw" : "1vw 2vw",
-                gap: isMobile? "5vw" : "1vw",
+                padding: isMobile ? "5vw" : "1vw 2vw",
+                gap: isMobile ? "5vw" : "1vw",
             }}
         >
             <TextField
@@ -44,7 +48,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
                     setInstallments(Number(ev.target.value))
                 }}
             >
-                {getParcelas(order.total).map((item) => (
+                {getParcelas(totalValue).map((item) => (
                     <MenuItem key={item.id} value={item.id}>
                         {item.text}
                     </MenuItem>
@@ -52,7 +56,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
             </TextField>
             <Box sx={{ justifyContent: "space-between" }}>
                 <p>Total a pagar:</p>
-                <CurrencyText value={order.total} color="black" />
+                <CurrencyText value={totalValue} color="black" />
             </Box>
         </Box>
     ) : (

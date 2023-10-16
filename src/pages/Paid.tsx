@@ -5,6 +5,7 @@ import colors from "../style/colors"
 import { useLocation, useNavigate } from "react-router-dom"
 import { SuccessText } from "../components/SuccessText"
 import { getParcelas } from "../tools/parcelas"
+import { useTotalValue } from "../hooks/useTotalValue"
 
 interface PaidProps {}
 
@@ -16,13 +17,14 @@ const Field: React.FC<{ title: string; value: string }> = ({ title, value }) => 
 )
 
 export const Paid: React.FC<PaidProps> = ({}) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+    const isMobile = useMediaQuery("(orientation: portrait)")
+    const { totalValue } = useTotalValue()
 
     const data: { order: Order; date: Date; installments: number; method: PaymentMethod; type: string; card: { last_digits: string } } =
         useLocation().state.data
 
-    const total = `R$ ${data.order.total.replace(".", ",")}`
-    const installments = getParcelas(data.order.total)
+    const total = `R$ ${totalValue.toFixed(2).toString().replace(".", ",")}`
+    const installments = getParcelas(totalValue.toFixed(2).toString())
 
     const navigate = useNavigate()
 
@@ -49,10 +51,10 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                 sx={{
                     border: `1px solid ${colors.border}`,
                     borderRadius: "2vw",
-                    width: isMobile? "90vw" : "80vw",
-                    padding: isMobile? "5vw" : "2vw",
+                    width: isMobile ? "90vw" : "80vw",
+                    padding: isMobile ? "5vw" : "2vw",
                     flexDirection: "column",
-                    gap: isMobile? "5vw" : "2vw"
+                    gap: isMobile ? "5vw" : "2vw",
                 }}
             >
                 <p style={{ fontWeight: "normal", color: colors.primary }}>
@@ -65,8 +67,8 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                         borderTop: `1px solid ${colors.border}`,
                         borderBottom: `1px solid ${colors.border}`,
                         flexDirection: "column",
-                        padding: isMobile? "5vw 0" : "2vw 0",
-                        gap: isMobile? "5vw" : "2vw",
+                        padding: isMobile ? "5vw 0" : "2vw 0",
+                        gap: isMobile ? "5vw" : "2vw",
                     }}
                 >
                     <Field
@@ -76,7 +78,7 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                     <Field title="Data" value={data.date.toLocaleString("pt-br").replace(",", " -")} />
                     <Field title="Subtotal" value={total} />
                 </Box>
-                <Box sx={{ alignSelf: "flex-end", width: isMobile? "80vw" : "15vw", flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
+                <Box sx={{ alignSelf: "flex-end", width: isMobile ? "80vw" : "15vw", flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                     {data.method == "card" && (
                         <Box sx={{ justifyContent: "space-between" }}>
                             <p style={{ fontWeight: "normal" }}>{installments[data.installments - 1]?.text}</p>
