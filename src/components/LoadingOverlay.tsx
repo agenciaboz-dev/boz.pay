@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, CircularProgress, Dialog } from "@mui/material"
+import { Box, CircularProgress, Dialog, useMediaQuery } from "@mui/material"
 import { backdropStyle } from "../style/backdrop"
 import LockIcon from "@mui/icons-material/Lock"
 
@@ -8,6 +8,8 @@ interface LoadingOverlayProps {
 }
 
 export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ open }) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     return (
         <Dialog
             open={open}
@@ -23,13 +25,20 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ open }) => {
                     width: "100vw",
                     background: "transparent",
                     justifyContent: "center",
-                    gap: "2vw",
+                    gap: isMobile? "8vw" : "2vw",
+                    padding: isMobile? "5vw" : ""
                 },
             }}
         >
-            <Box sx={{ position: "relative" }}>
-                <LockIcon sx={{ width: "7vw", height: "7vw" }} />
-                <CircularProgress size={"10vw"} sx={{ position: "absolute", top: "-1.5vw", left: "-1.5vw" }} />
+            <Box sx={{ position: "relative", gap: isMobile? "3vw" : "1vw" }}>
+                <LockIcon sx={{ width: isMobile? "15vw" : "7vw", height: isMobile? "15vw" : "7vw" }} />
+                <CircularProgress size={isMobile ? "20vw" : "10vw"}
+                    sx={{
+                        position: "absolute",
+                        top: isMobile? "-2.5vw" :  "-1.5vw",
+                        left: isMobile? "-2.5vw" : "-1.5vw"
+                    }}
+                />
             </Box>
             <h2>Aguarde um instante, seu pagamento está sendo processado com segurança...</h2>
             <h2 style={{ fontWeight: "normal", color: "black" }}>Por favor, não feche ou recarregue esta página.</h2>
