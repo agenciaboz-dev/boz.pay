@@ -23,6 +23,8 @@ export const Paid: React.FC<PaidProps> = ({}) => {
     const data: { order: Order; date: Date; installments: number; method: PaymentMethod; type: string; card: { last_digits: string } } =
         useLocation().state.data
 
+    const quote = `R$ ${(totalValue - Number(data.order.total)).toFixed(2).toString().replace(".", ",")}`
+    const subtotal = `R$ ${data.order.total.replace(".", ",")}`
     const total = `R$ ${totalValue.toFixed(2).toString().replace(".", ",")}`
     const installments = getParcelas(totalValue.toFixed(2).toString())
 
@@ -76,7 +78,10 @@ export const Paid: React.FC<PaidProps> = ({}) => {
                         value={data.method == "card" ? `${data.type}: **** **** **** ${data.card?.last_digits}` : data.type}
                     />
                     <Field title="Data" value={data.date.toLocaleString("pt-br").replace(",", " -")} />
-                    <Field title="Subtotal" value={total} />
+                    <Box sx={{ justifyContent: "space-between" }}>
+                        <Field title="Subtotal" value={subtotal} />
+                        <Field title="Frete" value={quote} />
+                    </Box>
                 </Box>
                 <Box sx={{ alignSelf: "flex-end", width: isMobile ? "80vw" : "15vw", flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                     {data.method == "card" && (
