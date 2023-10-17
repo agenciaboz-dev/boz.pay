@@ -14,6 +14,7 @@ export const Pix: React.FC<PixProps> = ({}) => {
     const isMobile = useMediaQuery('(orientation: portrait)')
 
     const data: { order: Order; qrcode: QrCode } = useLocation().state.data
+    const orderId = data.order.id
 
     const total = `R$ ${data.order.total.replace(".", ",")}`
     const width = window.innerWidth
@@ -35,7 +36,7 @@ export const Pix: React.FC<PixProps> = ({}) => {
             const charge = data.charge
             console.log(id)
 
-            if (id == data.order.id) {
+            if (id == orderId) {
                 console.log(charge)
 
                 if (charge.status == "PAID") {
