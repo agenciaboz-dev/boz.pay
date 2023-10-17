@@ -14,7 +14,6 @@ export const Pix: React.FC<PixProps> = ({}) => {
     const isMobile = useMediaQuery('(orientation: portrait)')
 
     const data: { order: Order; qrcode: QrCode } = useLocation().state.data
-    const orderId = data.order.id
 
     const total = `R$ ${data.order.total.replace(".", ",")}`
     const width = window.innerWidth
@@ -31,12 +30,12 @@ export const Pix: React.FC<PixProps> = ({}) => {
     }
 
     useEffect(() => {
-        io.on("pagseguro:paid", (data) => {
-            const id = data.id
-            const charge = data.charge
+        io.on("pagseguro:paid", (ioData) => {
+            const id = ioData.id
+            const charge = ioData.charge
             console.log(id)
 
-            if (id == orderId) {
+            if (id == data.order.id) {
                 console.log(charge)
 
                 if (charge.status == "PAID") {
@@ -45,8 +44,8 @@ export const Pix: React.FC<PixProps> = ({}) => {
                             data: {
                                 order: data.order,
                                 date: new Date(charge.paid_at),
-                                installments: charge.payment_method?.installments,
-                                method: data.method,
+                                installments: 1,
+                                method: "pix",
                                 type: charge.payment_method.type,
                             },
                         },
