@@ -87,19 +87,15 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     required
                     size={isMobile ? "medium" : "small"}
                 />
-                <Grid container spacing={1.5}>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Complemento"
-                            name="complement"
-                            value={values.complement}
-                            onChange={handleChange}
-                            InputProps={{ readOnly: !!initialValues.complement }}
-                            fullWidth
-                            size={isMobile ? "medium" : "small"}
-                        />
-                    </Grid>
-                </Grid>
+                <TextField
+                    label="Complemento"
+                    name="complement"
+                    value={values.complement}
+                    onChange={handleChange}
+                    InputProps={{ readOnly: !!initialValues.complement }}
+                    fullWidth
+                    size={isMobile ? "medium" : "small"}
+                />
 
                 <Grid container spacing={1.5}>
                     <Grid item xs={6}>
