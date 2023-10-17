@@ -79,7 +79,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     size={isMobile ? "medium" : "small"}
                 />
                 <TextField
-                    label="Logradouro"
+                    label="Endereço"
                     name="address"
                     value={values.address}
                     onChange={handleChange}
