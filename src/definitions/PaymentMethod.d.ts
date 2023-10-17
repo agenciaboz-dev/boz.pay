@@ -8,7 +8,6 @@ declare interface Form {
 
     postcode: string
     address: string
-    district: string
     city: string
     state: string
     complement: string

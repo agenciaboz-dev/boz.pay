@@ -19,13 +19,13 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
         <Box
             sx={{
                 flexDirection: "column",
-                gap: isMobile? "5vw" : "3vw",
+                gap: isMobile ? "5vw" : "3vw",
                 flexWrap: "wrap",
-                height: isMobile? "auto" : "90vh",
-                width: isMobile? "90vw" : (paymentMethod == "card" ? "30%" : "60%")
-                }}
-            >
-            <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
+                height: isMobile ? "auto" : "90vh",
+                width: isMobile ? "90vw" : paymentMethod == "card" ? "30%" : "60%",
+            }}
+        >
+            <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                 <h3>DETALHES DE COBRANÇA</h3>
 
                 <TextField
@@ -35,8 +35,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.name }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
                 <TextField
                     label="CPF"
                     name="cpf"
@@ -44,8 +44,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.cpf, inputComponent: MaskedInput, inputProps: { mask: masks.cpf } }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
                 <TextField
                     label="Telefone"
                     name="phone"
@@ -53,8 +53,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.phone, inputComponent: MaskedInput, inputProps: { mask: masks.phone } }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
                 <TextField
                     label="E-mail"
                     name="email"
@@ -62,11 +62,11 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.email }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
             </Box>
 
-            <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
+            <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                 <h3>ENDEREÇO</h3>
 
                 <TextField
@@ -76,8 +76,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.postcode, inputComponent: MaskedInput, inputProps: { mask: masks.cep } }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
                 <TextField
                     label="Logradouro"
                     name="address"
@@ -85,8 +85,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                     onChange={handleChange}
                     InputProps={{ readOnly: !!initialValues.address }}
                     required
-                    size={isMobile? "medium" : "small"}
-                    />
+                    size={isMobile ? "medium" : "small"}
+                />
                 <Grid container spacing={1.5}>
                     <Grid item xs={6}>
                         <TextField
@@ -96,20 +96,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             InputProps={{ readOnly: !!initialValues.complement }}
                             fullWidth
-                            size={isMobile? "medium" : "small"}
-                            />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Bairro"
-                            name="district"
-                            value={values.district}
-                            onChange={handleChange}
-                            InputProps={{ readOnly: !!initialValues.district }}
-                            fullWidth
-                            required
-                            size={isMobile? "medium" : "small"}
-                            />
+                            size={isMobile ? "medium" : "small"}
+                        />
                     </Grid>
                 </Grid>
 
@@ -123,8 +111,8 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             InputProps={{ readOnly: !!initialValues.city }}
                             required
-                            size={isMobile? "medium" : "small"}
-                            />
+                            size={isMobile ? "medium" : "small"}
+                        />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
@@ -135,16 +123,16 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             InputProps={{ readOnly: !!initialValues.state }}
                             required
-                            size={isMobile? "medium" : "small"}
-                            />
+                            size={isMobile ? "medium" : "small"}
+                        />
                     </Grid>
                 </Grid>
                 <Box sx={{ gap: "1vw" }}></Box>
             </Box>
 
             {paymentMethod == "card" && (
-                <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "3vw", width: "100%" }}>
-                    <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw" }}>
+                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "3vw", width: "100%" }}>
+                    <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                         <h3>DADOS DO TITULAR DO CARTÃO</h3>
                         <TextField
                             label="Número do cartão"
@@ -152,48 +140,50 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             value={(values as CardForm).cardNumber || ""}
                             onChange={handleChange}
                             required
-                            size={isMobile? "medium" : "small"}
-                            />
-                            <TextField
-                                label="Nome do titular"
-                                name="cardOwner"
-                                value={(values as CardForm).cardOwner || ""}
-                                onChange={handleChange}
-                                required
-                                size={isMobile? "medium" : "small"}
-                            />
+                            size={isMobile ? "medium" : "small"}
+                        />
+                        <TextField
+                            label="Nome do titular"
+                            name="cardOwner"
+                            value={(values as CardForm).cardOwner || ""}
+                            onChange={handleChange}
+                            required
+                            size={isMobile ? "medium" : "small"}
+                        />
                         {/* <Grid container spacing={1.5}> */}
-                            {/* <Grid item xs={6}> */}
-                                <TextField
-                                    fullWidth
-                                    label="Validade"
-                                    name="expiry"
-                                    value={(values as CardForm).expiry}
-                                    onChange={handleChange}
-                                    InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
-                                    size={isMobile? "medium" : "small"}
-                                    />
-                            {/* </Grid> */}
-                            {/* <Grid item xs={6}> */}
-                                <TextField
-                                    fullWidth
-                                    label="Código de segurança"
-                                    name="cvv"
-                                    value={(values as CardForm).cvv}
-                                    onChange={handleChange}
-                                    InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
-                                    size={isMobile? "medium" : "small"}
-                                    />
-                            {/* </Grid> */}
+                        {/* <Grid item xs={6}> */}
+                        <TextField
+                            fullWidth
+                            label="Validade"
+                            name="expiry"
+                            value={(values as CardForm).expiry}
+                            onChange={handleChange}
+                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
+                            size={isMobile ? "medium" : "small"}
+                        />
+                        {/* </Grid> */}
+                        {/* <Grid item xs={6}> */}
+                        <TextField
+                            fullWidth
+                            label="Código de segurança"
+                            name="cvv"
+                            value={(values as CardForm).cvv}
+                            onChange={handleChange}
+                            InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
+                            size={isMobile ? "medium" : "small"}
+                        />
+                        {/* </Grid> */}
                         {/* </Grid> */}
                     </Box>
                     <Box sx={{ flexDirection: "column", gap: "0.5vw" }}>
                         <h3>MODALIDADE DE PAGAMENTO</h3>
-                        <RadioGroup value={(values as CardForm).type || "credit"} onChange={(_, value) => setFieldValue("type", value)}
+                        <RadioGroup
+                            value={(values as CardForm).type || "credit"}
+                            onChange={(_, value) => setFieldValue("type", value)}
                             sx={{
                                 flexDirection: "row",
-                                justifyContent: isMobile? "space-around" : "start",
-                                gap: isMobile? 0 : "3vw"
+                                justifyContent: isMobile ? "space-around" : "start",
+                                gap: isMobile ? 0 : "3vw",
                             }}
                         >
                             <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />

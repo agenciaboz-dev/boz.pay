@@ -7,7 +7,6 @@ export const getPaymentForm = (method: PaymentMethod, billing?: Billing) => {
 
         postcode: billing?.postcode || "",
         address: billing?.address_1 || "",
-        district: "",
         city: billing?.city || "",
         state: billing?.state || "",
         complement: billing?.address_2 || "",
