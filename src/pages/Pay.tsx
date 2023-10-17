@@ -159,7 +159,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                 sx={{
                                     justifyContent: "space-between",
                                     flexDirection: isMobile ? "column" : "row",
-                                    padding: isMobile ? "5vw 5vw 20vw" : "2vw 5vw",
+                                    padding: isMobile ? "5vw 5vw 20vw" : "0 5vw",
                                     gap: isMobile ? "5vw" : "",
                                 }}
                             >
@@ -176,14 +176,14 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                         disabled={!order}
                                         type="submit"
                                         variant="contained"
-                                        sx={{ padding: "2vw", color: "white" }}
+                                        sx={{ padding: isMobile? "4vw" : ".5vw", color: "white" }}
                                         endIcon={<LockIcon />}
                                     >
                                         {loading ? <CircularProgress size="1.5rem" color="secondary" /> : "Finalizar compra"}
                                     </Button>
                                     <Box
                                         sx={{
-                                            gap: "1vw",
+                                            gap: isMobile? "10vw" : "1vw",
                                             fontWeight: "normal",
                                             alignItems: "center",
                                             justifyContent: "space-between",

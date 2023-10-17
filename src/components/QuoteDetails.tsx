@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Box, MenuItem, TextField } from "@mui/material"
+import { Box, MenuItem, TextField, useMediaQuery } from "@mui/material"
 import { QuoteComponent } from "./QuoteComponent"
 import { CurrencyText } from "./CurrencyText"
 import { useTotalValue } from "../hooks/useTotalValue"
@@ -10,6 +10,8 @@ interface QuoteDetailsProps {
 }
 
 export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) => {
+    const isMobile = useMediaQuery('(orientation: portrait)')
+
     const { setTotalValue } = useTotalValue()
 
     const [selectedQuote, setSelectedQuote] = useState(quoteList[0].ServiceCode)
@@ -33,6 +35,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) 
                         setSelectedQuote(quote.ServiceCode)
                     }}
                     InputProps={{ sx: { paddingRight: "5vw" } }}
+                    size={isMobile? "medium" : "small"}
                 >
                     {quoteList
                         .filter((quote) => !quote.Error)
@@ -40,7 +43,7 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) 
                             <MenuItem sx={{ flexDirection: "column", alignItems: "flex-start" }} key={quote.ServiceCode} value={quote.ServiceCode}>
                                 <p style={{ fontWeight: "bold" }}>{quote.ServiceDescription}</p>
 
-                                <Box sx={{ justifyContent: "space-between", width: "100%" }}>
+                                <Box sx={{ justifyContent: "space-between", width: isMobile? "70%" : "100%" }}>
                                     <p>{quote.DeliveryTime} dias</p>
                                     <CurrencyText value={quote.ShippingPrice} />
                                 </Box>

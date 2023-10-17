@@ -47,6 +47,7 @@ export const PaymentDetails: React.FC<PaymentDetailsProps> = ({ order, paymentMe
                     setParcelamento(Number(ev.target.value))
                     setInstallments(Number(ev.target.value))
                 }}
+                size={isMobile? "medium" : "small"}
             >
                 {getParcelas(totalValue).map((item) => (
                     <MenuItem key={item.id} value={item.id}>

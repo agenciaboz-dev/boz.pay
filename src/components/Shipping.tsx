@@ -30,15 +30,15 @@ export const Shipping: React.FC<ShippingProps> = ({ order }) => {
         <Box
             sx={{
                 flexDirection: "column",
-                gap: isMobile ? "5vw" : "1vw",
+                gap: isMobile ? "5vw" : "0.5vw",
                 // borderBottom: `1px solid ${colors.border}`,
                 borderTop: `1px solid ${colors.border}`,
-                padding: isMobile ? "5vw 0 0" : "1vw 0",
+                padding: isMobile ? "5vw 0 0" : "1vw 0 0",
             }}
         >
             <p>ENDEREÇO DE ENTREGA</p>
 
-            <Box sx={{ flexDirection: "column", color: "black", gap: "1vw", fontWeight: "bold" }}>
+            <Box sx={{ flexDirection: "column", color: "black", gap: "0.5vw", fontWeight: "bold", marginBottom: isMobile? 0 : "1vw" }}>
                 <p>{shipping.address_1}</p>
                 <p>{shipping.address_2}</p>
                 <p>{shipping.city}</p>

@@ -33,13 +33,14 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
     ]
 
     return (
-        <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "2vw", textAlign: "start", padding: isMobile? "5vw 5vw 0" : "2vw 5vw" }}>
+        <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw", textAlign: "start", padding: isMobile? "5vw 5vw 0" : "2vw 5vw 0" }}>
             <h3>MÉTODOS DE PAGAMENTO</h3>
 
             <Box
                 sx={{
                     gap: "1vw",
                     justifyContent: isMobile? "space-between" : "start",
+                    width: isMobile? "100%" : "30%"
                 }}>
                 {methods.map((item) => {
                     const current = paymentMethod == item.method
