@@ -25,18 +25,20 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ open }) => {
                     width: "100vw",
                     background: "transparent",
                     justifyContent: "center",
-                    gap: isMobile? "8vw" : "2vw",
-                    padding: isMobile? "5vw" : ""
+                    gap: isMobile ? "8vw" : "2vw",
+                    padding: isMobile ? "5vw" : "",
+                    textAlign: "center",
                 },
             }}
         >
-            <Box sx={{ position: "relative", gap: isMobile? "3vw" : "1vw" }}>
-                <LockIcon sx={{ width: isMobile? "15vw" : "7vw", height: isMobile? "15vw" : "7vw" }} />
-                <CircularProgress size={isMobile ? "20vw" : "10vw"}
+            <Box sx={{ position: "relative", gap: isMobile ? "3vw" : "1vw" }}>
+                <LockIcon sx={{ width: isMobile ? "15vw" : "7vw", height: isMobile ? "15vw" : "7vw" }} />
+                <CircularProgress
+                    size={isMobile ? "25vw" : "10vw"}
                     sx={{
                         position: "absolute",
-                        top: isMobile? "-2.5vw" :  "-1.5vw",
-                        left: isMobile? "-2.5vw" : "-1.5vw"
+                        top: isMobile ? "-5vw" : "-1.5vw",
+                        left: isMobile ? "-5vw" : "-1.5vw",
                     }}
                 />
             </Box>
