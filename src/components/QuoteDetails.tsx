@@ -9,8 +9,24 @@ interface QuoteDetailsProps {
     order: Order
 }
 
-export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList: originalQuoteList, order }) => {
+    const isMobile = useMediaQuery("(orientation: portrait)")
+    const quoteList: Quote[] = [
+        // {
+        //     AllowBuyLabel: false,
+        //     Carrier: "Ninguém",
+        //     CarrierCode: "NGM",
+        //     DeliveryTime: "0",
+        //     Error: false,
+        //     OriginalDeliveryTime: "0",
+        //     OriginalShippingPrice: "0",
+        //     ResponseTime: "0",
+        //     ServiceCode: "none",
+        //     ServiceDescription: "Ninguém",
+        //     ShippingPrice: "1",
+        // },
+        ...originalQuoteList,
+    ]
 
     const { setTotalValue } = useTotalValue()
 
@@ -35,15 +51,24 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList, order }) 
                         setSelectedQuote(quote.ServiceCode)
                     }}
                     InputProps={{ sx: { paddingRight: "5vw" } }}
-                    size={isMobile? "medium" : "small"}
+                    size={isMobile ? "medium" : "small"}
                 >
+                    {/* <MenuItem sx={{ flexDirection: "column", alignItems: "flex-start" }} value={"none"}>
+                        <p style={{ fontWeight: "bold" }}>{"Teste"}</p>
+
+                        <Box sx={{ justifyContent: "space-between", width: isMobile ? "70%" : "100%" }}>
+                            <p>0 dias</p>
+                            <CurrencyText value={1} />
+                        </Box>
+                    </MenuItem> */}
+
                     {quoteList
                         .filter((quote) => !quote.Error)
                         .map((quote) => (
                             <MenuItem sx={{ flexDirection: "column", alignItems: "flex-start" }} key={quote.ServiceCode} value={quote.ServiceCode}>
                                 <p style={{ fontWeight: "bold" }}>{quote.ServiceDescription}</p>
 
-                                <Box sx={{ justifyContent: "space-between", width: isMobile? "70%" : "100%" }}>
+                                <Box sx={{ justifyContent: "space-between", width: isMobile ? "70%" : "100%" }}>
                                     <p>{quote.DeliveryTime} dias</p>
                                     <CurrencyText value={quote.ShippingPrice} />
                                 </Box>
