@@ -11,8 +11,8 @@ export const SuccessText: React.FC<SuccessTextProps> = ({ email }) => {
     const isMobile = useMediaQuery('(orientation: portrait)')
 
     return (
-        <Box sx={{ flexDirection: "column", alignItems: "center", gap: isMobile? "5vw" : "1vw", width: "100vw", padding: isMobile? "5vw" : 0 }}>
-            <Box sx={{ gap: isMobile? "5vw" : "1vw", alignItems: "center" }}>
+        <Box sx={{ flexDirection: "column", alignItems: "center", gap: isMobile? "5vw" : "0.5vw", width: "100vw", padding: isMobile? "5vw" : 0 }}>
+            <Box sx={{ gap: isMobile? "5vw" : "0.5vw", alignItems: "center" }}>
                 <img src={check} alt="Check" style={{ width: isMobile? "10vw" : "2vw" }} />
                 <h3 style={{ color: colors.primary, textAlign: "center" }}>Sua transação foi concluída com sucesso!</h3>
             </Box>

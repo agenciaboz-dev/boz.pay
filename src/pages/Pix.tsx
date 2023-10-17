@@ -84,7 +84,7 @@ export const Pix: React.FC<PixProps> = ({}) => {
                     alignItems: "center",
                     height: "100vh",
                     overflowY: "auto",
-                    gap: "2vw",
+                    gap: isMobile? "2vw" : "1vw",
                     padding: isMobile? "0 0 20vw 0" : "2vw 0 10vw 0",
                 }}
             >
