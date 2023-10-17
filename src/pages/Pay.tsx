@@ -10,18 +10,18 @@ import { PaymentDetails } from "../components/PaymentDetails"
 import LockIcon from "@mui/icons-material/Lock"
 import brazilFlag from "../assets/brazil.svg"
 import { getPaymentForm } from "../tools/paymentForm"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikProps } from "formik"
 import { PaymentForm } from "../components/PaymentForm"
 import { useSnackbar } from "burgos-snackbar"
 import { encrypt } from "../tools/pagseguro_script"
 import { LoadingOverlay } from "../components/LoadingOverlay"
 import { useTotalValue } from "../hooks/useTotalValue"
+import { DebitAuthenticator } from "../components/DebitAuthenticator"
 
 interface PayProps {}
 
 export const Pay: React.FC<PayProps> = ({}) => {
     const isMobile = useMediaQuery("(orientation: portrait)")
-
     const io = useIo()
     const orderId = Number(useParams().orderId)
     const navigate = useNavigate()
@@ -51,6 +51,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
             }
 
             const data = { ...values, id: order?.id, method: paymentMethod, total: totalValue.toFixed(2), encrypted }
+            console.log(data)
 
             setLoading(true)
             io.emit("order:pay", data)
@@ -145,6 +146,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
             <Formik initialValues={initialValues} onSubmit={handleSubmit} enableReinitialize>
                 {(formikProps) => (
                     <Form>
+                        <DebitAuthenticator {...(formikProps as FormikProps<CardForm>)} submit={handleSubmit} setLoading={setLoading} />
                         <Box
                             sx={{
                                 flexDirection: "column",
@@ -176,14 +178,14 @@ export const Pay: React.FC<PayProps> = ({}) => {
                                         disabled={!order}
                                         type="submit"
                                         variant="contained"
-                                        sx={{ padding: isMobile? "4vw" : ".5vw", color: "white" }}
+                                        sx={{ padding: isMobile ? "4vw" : ".5vw", color: "white" }}
                                         endIcon={<LockIcon />}
                                     >
                                         {loading ? <CircularProgress size="1.5rem" color="secondary" /> : "Finalizar compra"}
                                     </Button>
                                     <Box
                                         sx={{
-                                            gap: isMobile? "10vw" : "1vw",
+                                            gap: isMobile ? "10vw" : "1vw",
                                             fontWeight: "normal",
                                             alignItems: "center",
                                             justifyContent: "space-between",

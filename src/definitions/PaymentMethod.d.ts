@@ -24,4 +24,5 @@ declare interface Card {
 declare type CardForm = Form &
     Card & {
         installments: number
+        auth?: string
     }

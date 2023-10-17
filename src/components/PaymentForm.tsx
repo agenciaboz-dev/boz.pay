@@ -177,7 +177,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             }}
                         >
                             <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />
-                            <FormControlLabel label="Débito" control={<Radio value={"debit"} disabled />} />
+                            <FormControlLabel label="Débito" control={<Radio value={"debit"} />} />
                         </RadioGroup>
                     </Box>
                 </Box>
