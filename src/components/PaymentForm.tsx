@@ -21,7 +21,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                 flexDirection: "column",
                 gap: isMobile ? "5vw" : "3vw",
                 flexWrap: "wrap",
-                height: isMobile ? "auto" : "90vh",
+                height: isMobile ? "auto" : "70vh",
                 width: isMobile ? "90vw" : paymentMethod == "card" ? "30%" : "60%",
             }}
         >
@@ -173,7 +173,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             sx={{
                                 flexDirection: "row",
                                 justifyContent: isMobile ? "space-around" : "start",
-                                gap: isMobile ? 0 : "3vw",
+                                gap: isMobile ? 0 : "5vw",
                             }}
                         >
                             <FormControlLabel label="Crédito" control={<Radio value={"credit"} />} />
