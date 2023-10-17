@@ -146,8 +146,6 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             required
                             size={isMobile ? "medium" : "small"}
                         />
-                        {/* <Grid container spacing={1.5}> */}
-                        {/* <Grid item xs={6}> */}
                         <TextField
                             fullWidth
                             label="Validade"
@@ -157,8 +155,6 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
                             size={isMobile ? "medium" : "small"}
                         />
-                        {/* </Grid> */}
-                        {/* <Grid item xs={6}> */}
                         <TextField
                             fullWidth
                             label="Código de segurança"
@@ -168,8 +164,6 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             InputProps={{ inputComponent: MaskedInput, inputProps: { mask: "000" } }}
                             size={isMobile ? "medium" : "small"}
                         />
-                        {/* </Grid> */}
-                        {/* </Grid> */}
                     </Box>
                     <Box sx={{ flexDirection: "column", gap: "0.5vw" }}>
                         <h3>MODALIDADE DE PAGAMENTO</h3>
