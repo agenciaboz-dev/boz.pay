@@ -100,6 +100,32 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                 <Grid container spacing={1.5}>
                     <Grid item xs={6}>
                         <TextField
+                            label="Número"
+                            name="number"
+                            fullWidth
+                            value={values.number}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.number }}
+                            required
+                            size={isMobile ? "medium" : "small"}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextField
+                            label="Bairro"
+                            name="district"
+                            fullWidth
+                            value={values.district}
+                            onChange={handleChange}
+                            InputProps={{ readOnly: !!initialValues.district }}
+                            required
+                            size={isMobile ? "medium" : "small"}
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={1.5}>
+                    <Grid item xs={6}>
+                        <TextField
                             label="Cidade"
                             name="city"
                             fullWidth

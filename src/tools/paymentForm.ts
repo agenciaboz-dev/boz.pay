@@ -1,7 +1,7 @@
-export const getPaymentForm = (method: PaymentMethod, billing?: Billing) => {
+export const getPaymentForm = (method: PaymentMethod, billing?: Billing, shipping?: Shipping) => {
     const notCard = {
         name: `${billing?.first_name || ""} ${billing?.last_name || ""}`,
-        cpf: "",
+        cpf: shipping?.cpf || "",
         phone: billing?.phone || "",
         email: billing?.email || "",
 
@@ -10,6 +10,8 @@ export const getPaymentForm = (method: PaymentMethod, billing?: Billing) => {
         city: billing?.city || "",
         state: billing?.state || "",
         complement: billing?.address_2 || "",
+        district: shipping?.district || "",
+        number: shipping?.number || "",
     }
 
     const form: Record<PaymentMethod, CardForm | Form> = {

@@ -42,4 +42,8 @@ declare interface Shipping {
     postcode: string
     country: string
     phone: string
+
+    cpf: string
+    district: string
+    number: string
 }
