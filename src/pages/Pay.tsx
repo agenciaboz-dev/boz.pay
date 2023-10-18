@@ -33,7 +33,7 @@ export const Pay: React.FC<PayProps> = ({}) => {
     const [order, setOrder] = useState<Order>()
     const [loading, setLoading] = useState(false)
 
-    const initialValues = getPaymentForm(paymentMethod, order?.billing)
+    const initialValues = getPaymentForm(paymentMethod, order?.billing, order?.shipping)
 
     const handleSubmit = useCallback(
         async (values: Form | CardForm) => {
@@ -94,9 +94,24 @@ export const Pay: React.FC<PayProps> = ({}) => {
             navigate("/pix", { state: { data: { order, qrcode: data } } })
         })
 
+        io.on("pagseguro:boleto", (data) => {
+            setLoading(false)
+            console.log(data)
+            navigate("/boleto", {
+                state: {
+                    data: {
+                        ...data.boleto,
+                        link: data.links.find((link: { href: string; media: string }) => link.media == "application/pdf").href,
+                        order,
+                    },
+                },
+            })
+        })
+
         return () => {
             io.off("pagseguro:paid")
             io.off("qrcode")
+            io.off("pagseguro:boleto")
         }
     }, [order, paymentMethod])
 

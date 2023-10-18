@@ -28,7 +28,7 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
             name: "Boleto",
             icon: <AccessTimeIcon />,
             method: "boleto" as PaymentMethod,
-            disabled: true,
+            // disabled: true,
         },
     ]
 
@@ -52,11 +52,10 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
                                 border: `1px solid ${colors.border}`,
                                 borderRadius: "1vw",
                                 color: current ? "white" : colors.unactive,
-                                width: isMobile? "32%" : "10vw",
+                                width: isMobile ? "32%" : "10vw",
                                 bgcolor: current ? colors.primary : "white",
                                 pointerEvents: current ? "none" : "auto",
                             }}
-                            disabled={item.disabled}
                             onClick={() => setPaymentMethod(item.method)}
                         >
                             {item.icon}

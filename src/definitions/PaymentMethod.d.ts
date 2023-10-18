@@ -11,6 +11,8 @@ declare interface Form {
     city: string
     state: string
     complement: string
+    district: string
+    number: string
 }
 
 declare interface Card {
