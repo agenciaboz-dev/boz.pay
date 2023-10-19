@@ -18,154 +18,158 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
     return (
         <Box
             sx={{
-                flexDirection: "column",
-                gap: isMobile ? "5vw" : "3vw",
-                flexWrap: "wrap",
-                height: isMobile ? "auto" : "70vh",
-                width: isMobile ? "90vw" : paymentMethod == "card" ? "30%" : "60%",
+                flexDirection: isMobile? "column" : "row",
+                width: isMobile? "90vw" : "60vw",
+                gap: "2vw",
+                paddingRight: isMobile? 0 : "2vw"
             }}
-        >
-            <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
-                <h3>DETALHES DE COBRANÇA</h3>
-
-                <TextField
-                    label="Nome"
-                    name="name"
-                    value={values.name}
-                    onChange={handleChange}
-                    // InputProps={{ readOnly: !!initialValues.name }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
-                <TextField
-                    label="CPF"
-                    name="cpf"
-                    value={values.cpf}
-                    onChange={handleChange}
-                    InputProps={{
-                        // readOnly: !!initialValues.cpf,
-                        inputComponent: MaskedInput,
-                        inputProps: { mask: masks.cpf },
-                    }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
-                <TextField
-                    label="Telefone"
-                    name="phone"
-                    value={values.phone}
-                    onChange={handleChange}
-                    InputProps={{
-                        // readOnly: !!initialValues.phone,
-                        inputComponent: MaskedInput,
-                        inputProps: { mask: masks.phone },
-                    }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
-                <TextField
-                    label="E-mail"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    // InputProps={{ readOnly: !!initialValues.email }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
+            >
+            <Box
+                sx={{
+                    flexDirection: "column",
+                    // flexWrap: "wrap",
+                    gap: isMobile ? "5vw" : "2vw",
+                    height: isMobile ? "auto" : "70vh",
+                    width: isMobile ? "90vw" : paymentMethod == "card" ? "46.5%" : "100%",
+                }}
+            >
+                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
+                    <h3>DETALHES DE COBRANÇA</h3>
+                    <TextField
+                        label="Nome"
+                        name="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        // InputProps={{ readOnly: !!initialValues.name }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <TextField
+                        label="CPF"
+                        name="cpf"
+                        value={values.cpf}
+                        onChange={handleChange}
+                        InputProps={{
+                            // readOnly: !!initialValues.cpf,
+                            inputComponent: MaskedInput,
+                            inputProps: { mask: masks.cpf },
+                        }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <TextField
+                        label="Telefone"
+                        name="phone"
+                        value={values.phone}
+                        onChange={handleChange}
+                        InputProps={{
+                            // readOnly: !!initialValues.phone,
+                            inputComponent: MaskedInput,
+                            inputProps: { mask: masks.phone },
+                        }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <TextField
+                        label="E-mail"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        // InputProps={{ readOnly: !!initialValues.email }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                </Box>
+                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
+                    <h3>ENDEREÇO</h3>
+                    <TextField
+                        label="CEP"
+                        name="postcode"
+                        value={values.postcode}
+                        onChange={handleChange}
+                        InputProps={{
+                            // readOnly: !!initialValues.postcode,
+                            inputComponent: MaskedInput,
+                            inputProps: { mask: masks.cep },
+                        }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <TextField
+                        label="Endereço"
+                        name="address"
+                        value={values.address}
+                        onChange={handleChange}
+                        // InputProps={{ readOnly: !!initialValues.address }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <Grid container spacing={1.5}>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Número"
+                                name="number"
+                                fullWidth
+                                value={values.number}
+                                onChange={handleChange}
+                                // InputProps={{ readOnly: !!initialValues.number }}
+                                required
+                                size={isMobile ? "medium" : "small"}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                label="Complemento"
+                                name="complement"
+                                value={values.complement}
+                                onChange={handleChange}
+                                // InputProps={{ readOnly: !!initialValues.complement }}
+                                fullWidth
+                                size={isMobile ? "medium" : "small"}
+                            />
+                        </Grid>
+                    </Grid>
+                    <TextField
+                        label="Bairro"
+                        name="district"
+                        fullWidth
+                        value={values.district}
+                        onChange={handleChange}
+                        // InputProps={{ readOnly: !!initialValues.district }}
+                        required
+                        size={isMobile ? "medium" : "small"}
+                    />
+                    <Grid container spacing={1.5}>
+                        <Grid item xs={9}>
+                            <TextField
+                                label="Cidade"
+                                name="city"
+                                fullWidth
+                                value={values.city}
+                                onChange={handleChange}
+                                // InputProps={{ readOnly: !!initialValues.city }}
+                                required
+                                size={isMobile ? "medium" : "small"}
+                            />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <TextField
+                                label="Estado"
+                                name="state"
+                                fullWidth
+                                value={values.state}
+                                onChange={handleChange}
+                                // InputProps={{ readOnly: !!initialValues.state }}
+                                required
+                                size={isMobile ? "medium" : "small"}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Box sx={{ gap: "1vw" }}></Box>
+                </Box>
             </Box>
-
-            <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
-                <h3>ENDEREÇO</h3>
-
-                <TextField
-                    label="CEP"
-                    name="postcode"
-                    value={values.postcode}
-                    onChange={handleChange}
-                    InputProps={{
-                        // readOnly: !!initialValues.postcode,
-                        inputComponent: MaskedInput,
-                        inputProps: { mask: masks.cep },
-                    }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
-                <TextField
-                    label="Endereço"
-                    name="address"
-                    value={values.address}
-                    onChange={handleChange}
-                    // InputProps={{ readOnly: !!initialValues.address }}
-                    required
-                    size={isMobile ? "medium" : "small"}
-                />
-                <TextField
-                    label="Complemento"
-                    name="complement"
-                    value={values.complement}
-                    onChange={handleChange}
-                    // InputProps={{ readOnly: !!initialValues.complement }}
-                    fullWidth
-                    size={isMobile ? "medium" : "small"}
-                />
-
-                <Grid container spacing={1.5}>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Número"
-                            name="number"
-                            fullWidth
-                            value={values.number}
-                            onChange={handleChange}
-                            // InputProps={{ readOnly: !!initialValues.number }}
-                            required
-                            size={isMobile ? "medium" : "small"}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Bairro"
-                            name="district"
-                            fullWidth
-                            value={values.district}
-                            onChange={handleChange}
-                            // InputProps={{ readOnly: !!initialValues.district }}
-                            required
-                            size={isMobile ? "medium" : "small"}
-                        />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1.5}>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Cidade"
-                            name="city"
-                            fullWidth
-                            value={values.city}
-                            onChange={handleChange}
-                            // InputProps={{ readOnly: !!initialValues.city }}
-                            required
-                            size={isMobile ? "medium" : "small"}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            label="Estado"
-                            name="state"
-                            fullWidth
-                            value={values.state}
-                            onChange={handleChange}
-                            // InputProps={{ readOnly: !!initialValues.state }}
-                            required
-                            size={isMobile ? "medium" : "small"}
-                        />
-                    </Grid>
-                </Grid>
-                <Box sx={{ gap: "1vw" }}></Box>
-            </Box>
-
             {paymentMethod == "card" && (
-                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "3vw", width: "100%" }}>
+                <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "2vw", width: isMobile? "100%" : "50%" }}>
                     <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw" }}>
                         <h3>DADOS DO TITULAR DO CARTÃO</h3>
                         <TextField
