@@ -1,7 +1,7 @@
 import "./App.css"
 import { BrowserRouter } from "react-router-dom"
 import { useMuiTheme } from "./hooks/useMuiTheme"
-import { ThemeProvider } from "@mui/material"
+import { Box, ThemeProvider } from "@mui/material"
 import { Providers } from "./Providers"
 import { Routes } from "./Routes"
 import { DarkModeProvider } from "./contexts/darkModeContext"
@@ -12,9 +12,11 @@ const Themed = () => {
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
-                <Providers>
-                    <Routes />
-                </Providers>
+                <Box sx={{ fontSize: "1vw" }}>
+                    <Providers>
+                        <Routes />
+                    </Providers>
+                </Box>
             </BrowserRouter>
         </ThemeProvider>
     )
