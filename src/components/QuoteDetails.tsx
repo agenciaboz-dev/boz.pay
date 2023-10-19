@@ -30,10 +30,10 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList: originalQ
 
     const { setTotalValue } = useTotalValue()
 
-    const [selectedQuote, setSelectedQuote] = useState(quoteList[0].ServiceCode)
+    const [selectedQuote, setSelectedQuote] = useState("none")
 
     useEffect(() => {
-        setTotalValue(Number(order.total) + Number(quoteList.find((quote) => quote.ServiceCode == selectedQuote)!.ShippingPrice))
+        // setTotalValue(Number(order.total) + Number(quoteList.find((quote) => quote.ServiceCode == selectedQuote)!.ShippingPrice))
     }, [])
 
     return (
@@ -50,17 +50,10 @@ export const QuoteDetails: React.FC<QuoteDetailsProps> = ({ quoteList: originalQ
                         setTotalValue(Number(order.total) + Number(quote.ShippingPrice))
                         setSelectedQuote(quote.ServiceCode)
                     }}
-                    InputProps={{ sx: { paddingRight: isMobile? "15vw" : "3vw" } }}
+                    InputProps={{ sx: { paddingRight: isMobile ? "15vw" : "3vw" } }}
                     size={isMobile ? "medium" : "small"}
                 >
-                    {/* <MenuItem sx={{ flexDirection: "column", alignItems: "flex-start" }} value={"none"}>
-                        <p style={{ fontWeight: "bold" }}>{"Teste"}</p>
-
-                        <Box sx={{ justifyContent: "space-between", width: isMobile ? "70%" : "100%" }}>
-                            <p>0 dias</p>
-                            <CurrencyText value={1} />
-                        </Box>
-                    </MenuItem> */}
+                    <MenuItem sx={{ display: "none" }} value={"none"}></MenuItem>
 
                     {quoteList
                         .filter((quote) => !quote.Error)
