@@ -2,8 +2,8 @@ import React from "react"
 import { Box, MenuItem, useMediaQuery } from "@mui/material"
 import CreditCardIcon from "@mui/icons-material/CreditCard"
 import PixIcon from "@mui/icons-material/Pix"
-import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import colors from "../style/colors"
+import ReceiptIcon from "@mui/icons-material/Receipt"
 
 interface PaymentMethodsProps {
     paymentMethod: PaymentMethod
@@ -11,7 +11,7 @@ interface PaymentMethodsProps {
 }
 
 export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, setPaymentMethod }) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+    const isMobile = useMediaQuery("(orientation: portrait)")
 
     const methods = [
         {
@@ -26,22 +26,23 @@ export const PaymentMethods: React.FC<PaymentMethodsProps> = ({ paymentMethod, s
         },
         {
             name: "Boleto",
-            icon: <AccessTimeIcon />,
+            icon: <ReceiptIcon />,
             method: "boleto" as PaymentMethod,
             // disabled: true,
         },
     ]
 
     return (
-        <Box sx={{ flexDirection: "column", gap: isMobile? "5vw" : "1vw", textAlign: "start", padding: isMobile? "5vw 5vw 0" : "2vw 5vw 0" }}>
+        <Box sx={{ flexDirection: "column", gap: isMobile ? "5vw" : "1vw", textAlign: "start", padding: isMobile ? "5vw 5vw 0" : "2vw 5vw 0" }}>
             <h3>MÉTODOS DE PAGAMENTO</h3>
 
             <Box
                 sx={{
                     gap: "1vw",
-                    justifyContent: isMobile? "space-between" : "start",
-                    width: isMobile? "100%" : "30%"
-                }}>
+                    justifyContent: isMobile ? "space-between" : "start",
+                    width: isMobile ? "100%" : "30%",
+                }}
+            >
                 {methods.map((item) => {
                     const current = paymentMethod == item.method
                     return (
