@@ -103,8 +103,7 @@ export const authenticate = (session: PagseguroSession, order: CardForm, totalVa
                         },
                     },
                     amount: {
-                        value: 200,
-                        // value: Math.round(totalValue * 100),
+                        value: Math.round(totalValue * 100),
                         currency: "BRL",
                     },
                     billingAddress: {
