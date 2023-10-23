@@ -3,6 +3,7 @@ import { Box, FormControlLabel, Grid, Radio, RadioGroup, TextField, useMediaQuer
 import { FormikProps } from "formik"
 import MaskedInput from "./MaskedInput"
 import masks from "../tools/masks"
+import { useSnackbar } from "burgos-snackbar"
 
 interface PaymentFormProps {}
 
@@ -11,9 +12,23 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
     handleChange,
     paymentMethod,
     setFieldValue,
-    initialValues,
 }) => {
-    const isMobile = useMediaQuery('(orientation: portrait)')
+    const isMobile = useMediaQuery("(orientation: portrait)")
+    const { snackbar } = useSnackbar()
+
+    const handleExpiryBlur = (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+        const value = event.target.value
+        const [month, year] = value.split("/")
+        if (year?.length == 2) {
+            const expiry = `${month}/20${year}`
+            setFieldValue("expiry", expiry)
+        }
+
+        if (month?.length == 2 && (Number(month) < 1 || Number(month) > 12)) {
+            snackbar({ severity: "error", text: "Mês inválido" })
+            setFieldValue("expiry", "")
+        }
+    }
 
     return (
         <Box
@@ -208,6 +223,7 @@ export const PaymentForm: React.FC<FormikProps<Form | CardForm> & { paymentMetho
                             onChange={handleChange}
                             InputProps={{ inputComponent: MaskedInput, inputProps: { mask: masks.expiry } }}
                             size={isMobile ? "medium" : "small"}
+                            onBlur={handleExpiryBlur}
                         />
                         <TextField
                             fullWidth
