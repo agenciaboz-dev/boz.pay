@@ -157,8 +157,8 @@ export const authenticate = (session: PagseguroSession, order: CardForm, totalVa
         }
 
         // Set a timeout to reject the Promise if the script doesn't load within a certain timeframe (e.g., 15 seconds)
-        setTimeout(() => {
-            reject(new Error("PagSeguro script loading timed out"))
-        }, 15000)
+        // setTimeout(() => {
+        //     reject(new Error("PagSeguro script loading timed out"))
+        // }, 15000)
     })
 }
