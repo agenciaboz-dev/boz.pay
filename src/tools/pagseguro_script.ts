@@ -131,7 +131,7 @@ export const authenticate = (session: PagseguroSession, order: CardForm, totalVa
             // @ts-ignore
             window.PagSeguro?.setUp({
                 session: session.session,
-                env: "SANDBOX",
+                env: "PROD",
             })
 
             console.log(request)
